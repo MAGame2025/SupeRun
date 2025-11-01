@@ -17,7 +17,7 @@ The game will revolve around a relativly short game loop (30 mins for a usual go
    
 The game will be developed for pc and is 3D.
 
-![Concept]("images/img1.png")
+![Concept](images/img1.png)
 
 
 
