@@ -87,7 +87,7 @@ World War Z: similar in the way that it is a horde shooter but its limited becau
 left 4 dead 2: similar zombie horde game but its less arcady, is level based and doesnt have any upgrade systems or ways to kill a really big number of zombies.
 
 
-![left 4 dead 2](images/img1.webp4)
+![left 4 dead 2](images/img4.webp4)
 
 In my search i used terms like: zombie game, horde shooter, arcade shooter, endless arena shooter.
 
