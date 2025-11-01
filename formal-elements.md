@@ -74,12 +74,18 @@ The game rules will be explained to the player
 
 ## סקירת משחקים קיימים
 VampireSurvivors: similar game in concept with the upgrades and items system but is a 2d game with a run being decided mainly on luck with no skill expression. This game provides a skill level to the game and wil be more engaging.
+
+
 ![VampireSurvivors](https://imgs.search.brave.com/aoY7sS_wnZoihtX9vhhoop7fl8h1isKT1D_84sgMwEI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMwLmdhbWVyYW50/aW1hZ2VzLmNvbS93/b3JkcHJlc3Mvd3At/Y29udGVudC91cGxv/YWRzLzIwMjIvMTIv/ZmlnaHRpbmctZW5l/bWllcy1pbi12YW1w/aXJlLXN1cnZpdm9y/cy5qcGc_cT00OSZm/aXQ9Y3JvcCZ3PTgy/NSZkcHI9Mg)
 
 World War Z: similar in the way that it is a horde shooter but its limited because of its graphics style. This game which will have a less realistic style will be able to handle big number of enemies and be accecible for lesser pc's.
+
+
 ![World War Z](https://imgs.search.brave.com/JIp1IXsgL9m2fn63Ogt4Xyzv43mcOnO5JlrQSHncuPM/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJhY2Nlc3Mu/Y29tL2Z1bGwvMjg3/Nzk5NC5wbmc)
 
 left 4 dead 2: similar zombie horde game but its less arcady, is level based and doesnt have any upgrade systems or ways to kill a really big number of zombies.
+
+
 ![left 4 dead 2](https://imgs.search.brave.com/jJUJRAzK_vvsTYi2tRSDLpJ-u_ai6QTfFeFQkl9ssQg/rs:fit:360:283:1:0/g:ce/aHR0cHM6Ly9zaGFy/ZWQuZmFzdGx5LnN0/ZWFtc3RhdGljLmNv/bS9zdG9yZV9pdGVt/X2Fzc2V0cy9zdGVh/bS9hcHBzLzU1MC9j/YXBzdWxlXzIzMXg4/Ny5qcGc_dD0xNzQ1/MzY4NTYy)
 
 In my search i used terms like: zombie game, horde shooter, arcade shooter, endless arena shooter.
