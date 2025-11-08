@@ -13,3 +13,25 @@ In fact, one analysis in early 2023 noted that multiple Vampire Survivor-inspire
 
 As of 2025 new games in the genre are still finding success by iterating on the formula. Notably, [Megabonk](https://store.steampowered.com/app/3405340/Megabonk/#:~:text=Recent%20Reviews%3A%20Very%20Positive%20,61) – a 3D third-person “horde survival roguelike” released in September 2025 – quickly gained traction. It currently has over 28,000 user reviews (93% positive).
 Megabonk is essentially a “3D Vampire Survivors” (auto-attacking, focus on absurd upgrades), and its Very Positive reception and strong sales demonstrate player demand for horde survival games remains high even three years after the genre’s rise. In sum, the market outlook for SupeRun’s genre is promising – the action-roguelike shooter space is trending upward, with indie titles regularly breaking out. The genre shows no sign of decline in player interest when it comes to a new game which can distinguish itself in this popular category.
+
+
+**Target Audience:**
+
+SupeRun will appeal to players who enjoy fast-paced, replayable action and chasing high scores. Specifically, the target audience includes fans of horde shooters and roguelikes. Gamers who loved titles like Vampire Survivors, Risk of Rain 2 or Megabonk. These players tend to be PC users aged 16-35, leaning toward those who enjoy intense action and skill-based challenges. Notably, SupeRun emphasizes skillful aiming, movement and “kiting” (dodging enemies while corralling hordes) setting it apart from auto-attack survivor games. This will attract players who found auto-shooter games fun but too passive or luck based where youre success is dictated randomly rather then by the player improving.
+The game’s quick 30-minute runs and arcade pacing also make it suitable for busy people who might play in short bursts but repeatedly
+The addition of a weekly leaderboard in SupeRun directly targets the competetive players who want to compare their ability to others and maybe have everyone see their achievment.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
