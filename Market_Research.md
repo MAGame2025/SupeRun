@@ -22,16 +22,44 @@ The game’s quick 30-minute runs and arcade pacing also make it suitable for bu
 The addition of a weekly leaderboard in SupeRun directly targets the competetive players who want to compare their ability to others and maybe have everyone see their achievment.
 
 
+**Competitive Landscape:**
 
+The horde shooter/roguelike market is crowded but ripe for innovation. Key competitors and comparable titles include:
 
+Vampire Survivors: The poster child of the genre. A 2D top-down auto-shooter where you survive waves of monsters. Vampire Survivors’ massive success (6+ million copies sold, ~$20M revenue).
+It emphasizes luck and passive auto-attacks over player skill. SupeRun plans to differentiate by requiring manual aiming and agile movement, appealing to players who want more control.
 
+Megabonk (Vedinad, 2025) – A recent indie hit that is very similar in concept to SupeRun. Megabonk is a 3D horde survival roguelike, often described as “a 3D Vampire Survivors with absurd upgrades.” Released Sep 2025, it quickly gained over 28k reviews at ~93% positive.
+This validates the market for 3D roguelike horde shooters. Megabonk features auto-firing weapons and wacky power-ups, whereas SupeRun will focus more on player aiming skill and possibly melee combat options.
 
+Risk of Rain 2 (Hopoo Games, 2019) - A co-op 3D roguelite shooter where players survive increasingly difficult monster waves. While not an endless “high-score” game (it has objectives and looping stages), it shares the loop of kill, collect power-ups, and try to outscale the hordes. Risk of Rain 2 was a [major indie success](https://app.sensortower.com/vgi/game/risk-of-rain-2#:~:text=Risk%20of%20Rain%202%20%E2%80%93,units%20sold), selling millions of copies (over 9 million units globally) and amassing $140M+ revenue. RoR2 is primarily co-operative and has a more complex, longer progression. In contrast, SupeRun is single-player and aims for a tighter 30-minute session followed by an endless mode for high scores.
 
+**Competitive Advantage & Differentiation:**
 
+SupeRun aims to carve out a space by blending the best of these worlds – offering the massive enemy counts and replayable upgrade systems of Vampire Survivor-likes, but with the precise shooting and movement skill of a third-person shooter. Currently, many “survivor” games lean on simplicity and luck (auto-targeting, random OP combos); SupeRun will reward player skill more directly.Additionally, SupeRun’s 3D third-person perspective and more involved combat (including potential melee attacks and manual dodge mechanics) set it apart visually and gameplay-wise from the swarm of 2D pixel-art clones. A focus on polished movement (perhaps wall jumping or advanced dodging) and aiming could be a unique selling point.
 
+**Platform & Distribution Strategy:**
 
+SupeRun will launch on PC (Windows) via digital distribution platforms, primarily Steam.
+SupeRun is single-player, thus a premium one-time purchase model is most appropriate.
+On PC, indie games typically sell as “pay-to-own” products at relatively low prices (often $5–$20 range). This model has been proven in this genre – Vampire Survivors launched at just ~$3 and later ~$5. If the game succeds then it is possible to add monetisation via cosmetics or new levels.
 
+**Marketing Strategy:**
 
+Possibly through dev log videos and informative shorts on youtube, marketing on places where you might find gamers like reddit. Maybe reach out to a publisher.
 
+**Events:**
 
+Events could be special rewards for players who can reach top 5% on the leaderboard. Special holiday events or cosmetics. Maybe a timed event where the player who manages to have the top score in the event's time range gets a rewards or a mention in some "champions log".
 
+**Meta-Game:**
+
+The meta game will be competing to get the highest score among your friends/ the rest of the palyers.
+
+**Danger Analysis and opportunities:**
+
+The rougelike Horde Survival is riddled with competition with new games comming out each day. There is a risk where a bigger company has a similar idea by the time development is over. The opportunity tho is that there is no game out there which takes this genre and give the player control and skill expression. 
+
+**Conclusion:**
+
+The market research indicates that SupeRun is positioned in a thriving segment of the PC games industry. The action roguelike horde shooter genre is popular and growing, with indie developers frequently topping sales charts and engaging large player bases. SupeRun’s concept aligns with what’s trending (fast-paced survival action with RPG-like upgrades), while its emphasis on player skill addresses a gap among current competitors. There is a strong global audience of players hungry for replayable, skill-driven experiences – and they’ve shown a willingness to support indie projects in this space, from $5 hits to multi-million-dollar successes. By learning from competitors’ successes and failures – e.g. adopting the addictive progression of Vampire Survivors but adding the polished combat of a shooter – SupeRun can capture the interest of both existing genre fans and new players looking for an intense arcade challenge.
