@@ -1,6 +1,4 @@
 
-[formal-elements](https://github.com/MAGame2025/SupeRun/blob/main/formal-elements.md)
-
 **Market Review and Trends(PC roguelike Horde Survival):** 
 
 The global PC gaming market remains big, generating over [$40 billion annually](https://www.blog.udonis.co/mobile-marketing/mobile-games/gaming-industry#h2-4).
