@@ -2,6 +2,7 @@
 [formal-elements](https://github.com/MAGame2025/SupeRun/blob/main/formal-elements.md)
 
 **Market Review and Trends(PC rougelike Horde Survival):** 
+
 The global PC gaming market remains big, generating over [$40 billion annually](https://www.blog.udonis.co/mobile-marketing/mobile-games/gaming-industry#h2-4).
 Within the PC market, recent data shows that roughly [half of 2025's top performing](https://intoindiegames.com/features/indie-and-aa-games-have-dominated-2025-so-far/) Steam games have come from independent or "AA" studios.
 In April 2025, for example, indie games held the top 2 sales spots on Steam, each selling millions of copies: Schedule 1(Solo developed indie game) was #1 with 4.7 million copies sold that month and R.E.P.O(Small dev team but The number of developers for the game R.E.P.O. is not publicly specified) was #2 with 3.7 million.
