@@ -53,7 +53,15 @@ Events could be special rewards for players who can reach top 5% on the leaderbo
 
 **Meta-Game:**
 
-The meta game will be competing to get the highest score among your friends/ the rest of the players.
+Highest score:The meta game will be competing to get the highest score among your close friends/ the rest of the players.
+
+Villain Collection: one of the primary meta goals is to unlock all the heroes and powerups. Each unlock will be tied to specific milestones.
+This gives players a clear roadmap of goals (“Just one more level to unlock the next villain!”). The excitement of seeing what new power or playstyle a villain brings will keep players invested. Unlocking the full roster becomes a completionist objective.
+
+Upgrades and Skill Trees: The gold/EXP earned from going through runs feeds into an upgrade system. Your runs can be upgraded – improving health, damage output, or unlocking new abilities. This RPG-lite progression means players can continuously gain strength, enabling them to feel a sense progression and aim for higher scores. The strategy of which upgrades to buy first adds depth.
+
+Achievements and Milestones: Steam achievements or in-game milestones serve as meta goals as well.
+
 
 **Danger Analysis and opportunities:**
 
