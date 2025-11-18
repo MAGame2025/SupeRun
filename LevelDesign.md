@@ -17,8 +17,14 @@ Because of this, most levels utilize procedural map generation(not all), for rep
 
 **Tutorial**
 
-  The purpose of this level is to teach the player the basic controls ,mechanichs and will have a start to finish route which will 
-  showcase the controls and interactions of the game.
+ The tutorial is a short, linear introductory level designed to teach:
+Basic movement (walking, jumping, sliding)
+Basic combat
+Collecting XP and gold
+Avoiding enemy attacks
+Core interactions in the game
+
+It contains a simple guided path with small safe encounters so the player can learn the controls without pressure.
 
 **Level 1 – Easy**
 
