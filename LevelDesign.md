@@ -17,12 +17,7 @@ Because of this, most levels utilize procedural map generation(not all), for rep
 
 **Tutorial**
 
- The tutorial is a short, linear introductory level designed to teach:
-Basic movement (walking, jumping, sliding)
-Basic combat
-Collecting XP and gold
-Avoiding enemy attacks
-Core interactions in the game
+ The tutorial is a short, linear introductory level designed to teach: Basic movement (walking, jumping, sliding), Basic combat, Collecting XP and gold, Avoiding enemy attacks, Core interactions in the game
 
 It contains a simple guided path with small safe encounters so the player can learn the controls without pressure.
 
