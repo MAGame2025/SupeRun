@@ -9,3 +9,5 @@ SupeRun rewards skillful movement, precise aim, and smart upgrade choices for pl
 Group Members are: Moshe Askarov  
 
 [formal-elements](https://github.com/MAGame2025/SupeRun/blob/main/formal-elements.md)
+
+[Itch.io](https://mishaaskk.itch.io/superun)
