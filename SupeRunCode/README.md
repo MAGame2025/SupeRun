@@ -9,8 +9,13 @@ Main playable scene is "LvL2" with:
 
     
 Controls:
-    Left click to shoot grenade 
-    WASD to move
-    Left shift to run
-    Leftshit + left ctrl will result in sliding
+
+Left click to shoot grenade 
+    
+WASD to move
+    
+Left shift to run
+    
+Leftshit + left ctrl will result in sliding
+    
 
