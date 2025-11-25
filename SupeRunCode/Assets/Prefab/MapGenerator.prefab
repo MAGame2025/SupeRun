@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7728256935942641332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3600828183634952650}
+  - component: {fileID: 5164072989580193201}
+  - component: {fileID: 9088311721741811140}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3600828183634952650
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728256935942641332}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 94.88406, y: 0, z: 124.6125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5164072989580193201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728256935942641332}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebff056eb59a96849a533009f8be95a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProceduralTerrain
+  groundBlockPrefab: {fileID: 1201043020536127805, guid: d3980693488da2c4b974953110287371, type: 3}
+  slopeBlockPrefab: {fileID: 8005258787304694884, guid: 88a9014b49b96da4ab27be1d91abbd17, type: 3}
+  mapSize: 10
+  blockSpacingHorizontal: 8
+  blockSpacingVertical: 4
+  hilliness: 0.3
+  maxElevation: 6
+  slopeLocalOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &9088311721741811140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728256935942641332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297afb2a9ac1fab41ae4041314c4f3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlatProceduralTerrain
+  groundBlocks:
+  - {fileID: 7527077231419222799, guid: 8a98bce513e277b419008acad309f0fa, type: 3}
+  treePrefabs: []
+  structurePrefabs: []
+  grassPrefabs: []
+  generateBoundaryWalls: 1
+  wallPrefab: {fileID: 4263091246662680136, guid: 00d2b47181049b84bbeec41197e2c8c6, type: 3}
+  size: 3
+  tileSpacing: 14
+  structureCount: 0
+  treeFrequency: 0
+  grassFrequency: 0
+  player: {fileID: 0}
+  Yoffset: 2
