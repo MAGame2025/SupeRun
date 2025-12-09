@@ -13,3 +13,18 @@ Group Members are: Moshe Askarov
 [Itch.io](https://mishaaskk.itch.io/superunw6)
 
 [Playtest questions](https://github.com/MAGame2025/SupeRun/blob/main/Testing%20Planning%20Document.md)
+
+
+W6 Changes:
+
+Xp
+
+LevelingUp
+
+Weapon Upgrades
+
+UI for choosing upgrade
+
+refactored Weapon system for better scalability with interfaces and inheritance
+
+Seperated weapons and projectiles
