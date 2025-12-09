@@ -11,3 +11,5 @@ Group Members are: Moshe Askarov
 [formal-elements](https://github.com/MAGame2025/SupeRun/blob/main/formal-elements.md)
 
 [Itch.io](https://mishaaskk.itch.io/superunw6)
+
+[Playtest questions](https://github.com/MAGame2025/SupeRun/blob/main/Testing%20Planning%20Document.md)
