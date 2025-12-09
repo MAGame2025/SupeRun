@@ -186,7 +186,14 @@ public class FlatProceduralTerrain : MonoBehaviour
 
                 Debug.Log($"[Terrain] Spawning player at {spawnPos}");
 
+                // actually spawn the player first
                 spawnedPlayer = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
+
+                // tell XP manager which player instance to track
+                if (SRXpManager.Instance != null)
+                {
+                    SRXpManager.Instance.RegisterPlayer(spawnedPlayer.transform);
+                }
 
                 // Tell the enemy manager about this runtime-spawned player
                 var enemyManager = SREnemyManager.Instance;
