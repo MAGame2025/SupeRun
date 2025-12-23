@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Builds level-up options (new weapons / weapon upgrades)
-/// and notifies the UI when the player levels up.
-/// </summary>
+
+// Builds level-up options (new weapons / weapon upgrades)
+// and notifies the UI when the player levels up.
+
 public class LevelUpController : MonoBehaviour
 {
     [Header("Refs")]
@@ -14,10 +14,10 @@ public class LevelUpController : MonoBehaviour
     [Tooltip("Default upgrade context. Later you can tweak this with luck/items.")]
     public WeaponUpgradeContext upgradeContext = WeaponUpgradeContext.Default;
 
-    /// <summary>
-    /// Fired whenever we generate level-up options.
-    /// LevelUpUI should subscribe to this.
-    /// </summary>
+
+    // Fired whenever we generate level-up options.
+    // LevelUpUI should subscribe to this.
+
     public System.Action<List<LevelUpOption>> OnLevelUpOptionsGenerated;
 
     private void Awake()
@@ -25,11 +25,11 @@ public class LevelUpController : MonoBehaviour
         TryResolveWeaponManager("Awake");
     }
 
-    /// <summary>
-    /// Ensures weaponManager is set.
-    /// Tries serialized ref first, then searches the scene for SRWeaponManager
-    /// (which will be on the runtime-spawned player).
-    /// </summary>
+
+    // Ensures weaponManager is set.
+    // Tries serialized ref first, then searches the scene for SRWeaponManager
+    // (which will be on the runtime-spawned player).
+
     private bool TryResolveWeaponManager(string source)
     {
         if (weaponManager != null)
@@ -82,9 +82,9 @@ public class LevelUpController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Called by the UI when the player selects an option.
-    /// </summary>
+
+    // Called by the UI when the player selects an option.
+
     public void ApplyOption(LevelUpOption option)
     {
         if (option == null)
@@ -137,11 +137,11 @@ public class LevelUpController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Builds up to 'count' random options from:
-    ///  - locked weapon prefabs (new weapons)
-    ///  - upgradeable equipped weapons
-    /// </summary>
+
+    // Builds up to 'count' random options from:
+    //  - locked weapon prefabs (new weapons)
+    //  - upgradeable equipped weapons
+
     private List<LevelUpOption> GenerateOptions(int count)
     {
         var options = new List<LevelUpOption>();

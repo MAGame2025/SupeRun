@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
+using System;
+
 
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Health")]
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float currentHealth;
+
+    public float MaxHealth => maxHealth;
+    public float CurrentHealth => currentHealth;
+    public event Action<float, float> OnHealthChanged; // (current, max)
+
 
     [Header("References")]
     [SerializeField] private PlayerController playerController;
@@ -47,6 +54,7 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+        NotifyHealthChanged();
     }
 
     public void TakeDamage(float amount)
@@ -55,6 +63,7 @@ public class PlayerHealth : MonoBehaviour
         if (amount <= 0f) return;
 
         currentHealth -= amount;
+        NotifyHealthChanged();
 
         if (currentHealth <= 0f)
         {
@@ -68,13 +77,21 @@ public class PlayerHealth : MonoBehaviour
         if (amount <= 0f) return;
 
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        NotifyHealthChanged();
     }
 
     public void ResetHealth()
     {
         isDead = false;
         currentHealth = maxHealth;
+        NotifyHealthChanged();
     }
+
+    private void NotifyHealthChanged()
+    {
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+    }
+
 
     private void Die()
     {

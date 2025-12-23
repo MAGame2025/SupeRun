@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,6 +32,8 @@ public class LevelUpUI : MonoBehaviour
     private List<LevelUpOption> currentOptions;
     private float previousTimeScale = 1f;
 
+    private CursorLockController cursorLock;
+
     private void Awake()
     {
         if (panelRoot != null)
@@ -39,46 +42,46 @@ public class LevelUpUI : MonoBehaviour
 
     private void Start()
     {
+        cursorLock = FindAnyObjectByType<CursorLockController>();
+
         if (levelUpController == null)
-        {
             levelUpController = FindAnyObjectByType<LevelUpController>();
-        }
 
         if (levelUpController != null)
-        {
             levelUpController.OnLevelUpOptionsGenerated += HandleLevelUpOptions;
-        }
         else
-        {
             Debug.LogWarning("LevelUpUI: No LevelUpController found in scene.");
-        }
     }
 
     private void OnDestroy()
     {
         if (levelUpController != null)
-        {
             levelUpController.OnLevelUpOptionsGenerated -= HandleLevelUpOptions;
-        }
     }
 
     private void HandleLevelUpOptions(List<LevelUpOption> options)
     {
         currentOptions = options;
 
-        if (panelRoot == null || optionButtons == null || optionTitleTexts == null || optionDescriptionTexts == null)
+        if (panelRoot == null || optionButtons == null ||
+            optionTitleTexts == null || optionDescriptionTexts == null)
         {
             Debug.LogWarning("LevelUpUI: Panel or button/text arrays not assigned.");
-            // Fallback: just auto-pick the first option
+
+            // Fallback: auto-pick first option
             if (options != null && options.Count > 0)
-            {
                 levelUpController.ApplyOption(options[0]);
-            }
+
             return;
         }
 
+        // === ENTER UI MODE ===
+        if (cursorLock != null)
+            cursorLock.SetUIMode(true);
+
         previousTimeScale = Time.timeScale;
-        Time.timeScale = 0f; // pause game while choosing
+        Time.timeScale = 0f;
+
         panelRoot.SetActive(true);
 
         // Setup option buttons
@@ -86,7 +89,7 @@ public class LevelUpUI : MonoBehaviour
         {
             if (i < options.Count)
             {
-                var opt = options[i];
+                LevelUpOption opt = options[i];
 
                 optionButtons[i].gameObject.SetActive(true);
 
@@ -96,7 +99,7 @@ public class LevelUpUI : MonoBehaviour
                 if (optionDescriptionTexts.Length > i && optionDescriptionTexts[i] != null)
                     optionDescriptionTexts[i].text = opt.Description;
 
-                int index = i; // capture for closure
+                int index = i; // capture
                 optionButtons[i].onClick.RemoveAllListeners();
                 optionButtons[i].onClick.AddListener(() => OnClickOption(index));
             }
@@ -129,7 +132,6 @@ public class LevelUpUI : MonoBehaviour
 
     private void OnClickSkip()
     {
-        // Right now, skip = no upgrade, just continue.
         ClosePanel();
     }
 
@@ -140,5 +142,15 @@ public class LevelUpUI : MonoBehaviour
 
         Time.timeScale = previousTimeScale;
         currentOptions = null;
+
+        // IMPORTANT: exit UI mode NEXT FRAME so click is not eaten
+        StartCoroutine(ExitUIModeNextFrame());
+    }
+
+    private IEnumerator ExitUIModeNextFrame()
+    {
+        yield return null; // wait one frame
+        if (cursorLock != null)
+            cursorLock.SetUIMode(false);
     }
 }

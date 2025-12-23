@@ -26,7 +26,10 @@ public class InputReader : MonoBehaviour
     public bool CrouchHeld { get; private set; }
 
     public bool ShootPressed { get; private set; }
-    public bool ShootHeld { get; private set; }  
+    public bool ShootHeld { get; private set; }
+
+    public bool InteractPressed { get; private set; }
+    public bool InteractHeld { get; private set; }
 
 
     private void Awake()
@@ -104,6 +107,18 @@ public class InputReader : MonoBehaviour
             ShootHeld = false;
         };
 
+        // --- Interact ---
+        controls.Gameplay.Interact.started += ctx =>
+        {
+            InteractPressed = true;   // one-frame flag
+            InteractHeld = true;
+        };
+        controls.Gameplay.Interact.canceled += ctx =>
+        {
+            InteractHeld = false;
+        };
+
+
         isInitialized = true;
     }
 
@@ -124,7 +139,9 @@ public class InputReader : MonoBehaviour
         // Reset one-frame flags at the end of the frame
         JumpPressed = false;
         CrouchPressed = false;
-        ShootPressed = false;   
+        ShootPressed = false;
+        InteractPressed = false;
+
     }
 
 }
