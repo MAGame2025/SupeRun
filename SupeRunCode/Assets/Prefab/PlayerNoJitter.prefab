@@ -233,7 +233,6 @@ GameObject:
   - component: {fileID: 5492577033111163234}
   - component: {fileID: 6241155135562057154}
   - component: {fileID: 6565262251686801787}
-  - component: {fileID: 8033660802114270679}
   m_Layer: 5
   m_Name: Reticle
   m_TagString: Untagged
@@ -298,21 +297,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8033660802114270679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2315064159465283144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 278b405dcba60844dafa497a432c7598, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SniperReticleUI
-  weaponManager: {fileID: 8108468561063258471}
-  reticleRoot: {fileID: 2315064159465283144}
-  sniperComponentTypeName: SRSniperRifle
 --- !u!1 &2746146539254003558
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,8 +451,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2895986479954911682}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.16240855, y: -0.5363667, z: -0.10605215, w: 0.82139343}
-  m_LocalPosition: {x: 4.2830276, y: 0.4723302, z: -1.8819628}
+  m_LocalRotation: {x: -0.11940312, y: 0.7235194, z: 0.12943058, w: 0.6674656}
+  m_LocalPosition: {x: -4.9378986, y: 0.5656842, z: 0.3986206}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -594,7 +578,7 @@ MonoBehaviour:
   IgnoreTimeScale: 0
   WorldUpOverride: {fileID: 0}
   ChannelMask: -1
-  UpdateMethod: 2
+  UpdateMethod: 1
   BlendUpdateMethod: 1
   LensModeOverride:
     Enabled: 0
@@ -624,7 +608,6 @@ GameObject:
   - component: {fileID: 8573772079706687805}
   - component: {fileID: 8429363396921653122}
   - component: {fileID: 7160267632687545557}
-  - component: {fileID: 5490158225841759472}
   m_Layer: 7
   m_Name: PlayerNoJitter
   m_TagString: Player
@@ -649,6 +632,7 @@ Transform:
   - {fileID: 5972690371790632642}
   - {fileID: 6284878947808890582}
   - {fileID: 636795534799136102}
+  - {fileID: 8370381010772262984}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &5041937588244204348
@@ -671,7 +655,7 @@ CharacterController:
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 80
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -709,16 +693,16 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 72
-  maxWalkSlope: 60
+  maxWalkSlope: 80
   groundAcceleration: 60
   groundDeceleration: 60
   airAcceleration: 25
-  airRotationSpeed: 15
   slideFriction: 3
   slideSlopeAccel: 25
   minSlideSlopeAngle: 5
   externalPushDamping: 5
   pushCooldown: 2
+  enableSteepSlopeSurfing: 0
 --- !u!114 &8573772079706687805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,7 +721,8 @@ MonoBehaviour:
   maxJumps: 3
   slideDuration: 3
   slideSpeedMultiplier: 1.5
-  minSlideStartAngle: 10
+  rotateSpeed: 20
+  faceCameraWhenIdle: 0
   inputReader: {fileID: 8803146272684797320}
 --- !u!114 &8429363396921653122
 MonoBehaviour:
@@ -782,20 +767,6 @@ MonoBehaviour:
     m_Bits: 512
   maxHits: 32
   logPrompt: 0
---- !u!114 &5490158225841759472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2965674475673373541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44309f57c2224c34b84743bfcf03daf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CursorLockController
-  lockOnStart: 1
-  toggleKey: 60
 --- !u!1 &3376186059384937517
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,16 +796,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3376186059384937517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -14.21}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1930100786067607858}
-  m_Father: {fileID: 636795534799136102}
+  m_Father: {fileID: 5448224272670642915}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -4.830017, y: 3.8300018}
+  m_AnchoredPosition: {x: 0, y: 2.5}
   m_SizeDelta: {x: 25, y: 3.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2818018146838552296
@@ -882,7 +853,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &7414116439677334644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1526,6 +1497,7 @@ GameObject:
   - component: {fileID: 8110932877060422843}
   - component: {fileID: 6630492018577475951}
   - component: {fileID: 7155545518632775306}
+  - component: {fileID: 2123456506517234673}
   m_Layer: 5
   m_Name: CanvasPlayerScreen
   m_TagString: Untagged
@@ -1545,11 +1517,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5492577033111163234}
-  - {fileID: 8370381010772262984}
   - {fileID: 3440629049155395687}
   - {fileID: 4254648476031848700}
   - {fileID: 1539970500295530465}
+  - {fileID: 5492577033111163234}
   m_Father: {fileID: 5448224272670642915}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1620,6 +1591,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2123456506517234673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5909725896027455632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 278b405dcba60844dafa497a432c7598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SniperReticleUI
+  weaponManager: {fileID: 8108468561063258471}
+  reticleImage: {fileID: 6565262251686801787}
 --- !u!1 &5960410912483318942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,8 +1636,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5960410912483318942}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.16240852, y: -0.53636676, z: -0.106052145, w: 0.82139343}
-  m_LocalPosition: {x: 4.2830276, y: 0.4723302, z: -1.8819628}
+  m_LocalRotation: {x: -0.11933722, y: 0.72350436, z: 0.12934792, w: 0.6675097}
+  m_LocalPosition: {x: -4.9378986, y: 0.5656842, z: 0.3986206}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1735,7 +1720,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: -66.279305
+    Value: 94.615295
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -1745,7 +1730,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: -8.603062
+    Value: -6.485572
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0

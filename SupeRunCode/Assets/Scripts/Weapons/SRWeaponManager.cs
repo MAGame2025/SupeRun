@@ -73,6 +73,19 @@ public class SRWeaponManager : MonoBehaviour
         // ---- SHOOT INPUT ----
         // Use ShootHeld for auto-fire with internal cooldown.
         bool fireInput = inputReader.ShootHeld;
+        float scroll = inputReader.SwitchWeaponValue;
+
+        if (scroll > 0.1f)
+        {
+            CycleWeapon(+1);
+            inputReader.ConsumeSwitchWeapon();
+        }
+        else if (scroll < -0.1f)
+        {
+            CycleWeapon(-1);
+            inputReader.ConsumeSwitchWeapon();
+        }
+
 
         if (fireInput)
         {

@@ -31,6 +31,9 @@ public class InputReader : MonoBehaviour
     public bool InteractPressed { get; private set; }
     public bool InteractHeld { get; private set; }
 
+    public float SwitchWeaponValue { get; private set; }
+
+
 
     private void Awake()
     {
@@ -125,6 +128,17 @@ public class InputReader : MonoBehaviour
     private void OnEnable()
     {
         InitializeIfNeeded();     // make sure controls exists
+
+        controls.Gameplay.SwitchWeapon.performed += ctx =>
+        {
+            SwitchWeaponValue = ctx.ReadValue<float>();
+        };
+
+        controls.Gameplay.SwitchWeapon.canceled += ctx =>
+        {
+            SwitchWeaponValue = 0f;
+        };
+
         controls.Enable();
     }
 
@@ -143,6 +157,11 @@ public class InputReader : MonoBehaviour
         InteractPressed = false;
 
     }
+    public void ConsumeSwitchWeapon()
+    {
+        SwitchWeaponValue = 0f;
+    }
+
 
 }
 

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 // Handles low-level physics via CharacterController: movement, sliding, jumping, etc.
+// NOTE: This Motor DOES NOT rotate the player anymore.
+// Rotation/facing should be handled by PlayerController.
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMotor : MonoBehaviour
 {
@@ -22,7 +24,6 @@ public class PlayerMotor : MonoBehaviour
     [SerializeField] private float groundAcceleration = 60f;
     [SerializeField] private float groundDeceleration = 60f;
     [SerializeField] private float airAcceleration = 25f;
-    [SerializeField] private float airRotationSpeed = 15f;
 
     [Header("Slide Physics")]
     [SerializeField] private float slideFriction = 2f;
@@ -32,6 +33,9 @@ public class PlayerMotor : MonoBehaviour
     [Header("External Forces")]
     [SerializeField] private float externalPushDamping = 5f;
     [SerializeField] private float pushCooldown = 2f;
+
+    [Header("Steep Slopes")]
+    [SerializeField] private bool enableSteepSlopeSurfing = true;
 
     public Vector3 PlanarVelocity { get; private set; }
     public float VerticalVelocity { get; private set; }
@@ -56,9 +60,11 @@ public class PlayerMotor : MonoBehaviour
     private void Update()
     {
         currentSpeed = PlanarVelocity.magnitude;
+
         if (jumpCooldownTimer > 0f)
             jumpCooldownTimer -= Time.deltaTime;
 
+        // Decay external pushes here (keeps motor deterministic and avoids tug-of-war)
         if (externalPlanarVelocity.sqrMagnitude > 0.0001f)
         {
             externalPlanarVelocity = Vector3.MoveTowards(
@@ -81,14 +87,9 @@ public class PlayerMotor : MonoBehaviour
         {
             float currentMag = PlanarVelocity.magnitude;
             float accel = (targetSpeed > currentMag) ? groundAcceleration : groundDeceleration;
+
             Vector3 targetVel = wishDir * targetSpeed;
             PlanarVelocity = Vector3.MoveTowards(PlanarVelocity, targetVel, accel * Time.deltaTime);
-
-            if (PlanarVelocity.sqrMagnitude > 0.1f)
-            {
-                Quaternion targetRot = Quaternion.LookRotation(PlanarVelocity.normalized);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, airRotationSpeed * Time.deltaTime);
-            }
         }
         else
         {
@@ -97,6 +98,8 @@ public class PlayerMotor : MonoBehaviour
         }
 
         ApplyGravityAndMove();
+
+        // Reset wall contact per-frame
         isTouchingWall = false;
     }
 
@@ -110,17 +113,12 @@ public class PlayerMotor : MonoBehaviour
 
         float projSpeed = Vector3.Dot(PlanarVelocity, wishDir);
         float addSpeed = targetSpeed - projSpeed;
+
         if (addSpeed > 0f)
         {
             float accelSpeed = airAcceleration * targetSpeed * Time.deltaTime;
             accelSpeed = Mathf.Min(accelSpeed, addSpeed);
             PlanarVelocity += wishDir * accelSpeed;
-        }
-
-        if (wishDir.sqrMagnitude > 0.1f)
-        {
-            Quaternion targetRot = Quaternion.LookRotation(wishDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, airRotationSpeed * Time.deltaTime);
         }
     }
 
@@ -154,14 +152,14 @@ public class PlayerMotor : MonoBehaviour
 
         if (isGrounded && onSlope && !isSurfing)
         {
-            Vector3 slopeDirFlat = new Vector3(downSlope.x, 0, downSlope.z).normalized;
+            Vector3 slopeDirFlat = new Vector3(downSlope.x, 0f, downSlope.z).normalized;
             PlanarVelocity += slopeDirFlat * slideSlopeAccel * Time.deltaTime;
         }
         else
         {
             float speed = PlanarVelocity.magnitude;
             speed = Mathf.MoveTowards(speed, 0f, slideFriction * Time.deltaTime);
-            PlanarVelocity = PlanarVelocity.normalized * speed;
+            PlanarVelocity = (PlanarVelocity.sqrMagnitude > 0.0001f) ? PlanarVelocity.normalized * speed : Vector3.zero;
         }
 
         // Slide steering
@@ -173,11 +171,6 @@ public class PlayerMotor : MonoBehaviour
                 PlanarVelocity, targetVel, controlFactor * airAcceleration * Time.deltaTime);
         }
 
-        if (PlanarVelocity.sqrMagnitude > 0.1f)
-        {
-            transform.rotation = Quaternion.LookRotation(PlanarVelocity.normalized, Vector3.up);
-        }
-
         ApplyGravityAndMove();
     }
 
@@ -187,6 +180,8 @@ public class PlayerMotor : MonoBehaviour
         isGrounded = false;
         isSurfing = false;
         jumpCooldownTimer = 0.2f;
+
+        // Nudge upward to avoid immediate re-grounding on bumpy terrain
         controller.Move(Vector3.up * 0.05f);
     }
 
@@ -218,8 +213,7 @@ public class PlayerMotor : MonoBehaviour
         }
 
         Vector3 finalVelocity = finalPlanar + Vector3.up * VerticalVelocity;
-        Vector3 motion = finalVelocity * Time.deltaTime;
-        controller.Move(motion);
+        controller.Move(finalVelocity * Time.deltaTime);
     }
 
     private void PerformGroundCheck()
@@ -255,8 +249,11 @@ public class PlayerMotor : MonoBehaviour
             // We hit something below us → we're grounded
             isGrounded = true;
 
-            // Mark steep slopes as "surfing"
-            isSurfing = angle > maxWalkSlope;
+            // Only mark steep slopes as "surfing" if enabled
+            if (enableSteepSlopeSurfing)
+                isSurfing = angle > maxWalkSlope;
+            else
+                isSurfing = false;
         }
         else
         {
@@ -267,12 +264,13 @@ public class PlayerMotor : MonoBehaviour
         }
     }
 
-
     public void ApplyExternalPush(Vector3 push)
     {
         if (Time.time < nextAllowedPushTime) return;
+
         push.y = 0f;
         if (push.sqrMagnitude < 0.0001f) return;
+
         externalPlanarVelocity += push;
         nextAllowedPushTime = Time.time + pushCooldown;
     }
