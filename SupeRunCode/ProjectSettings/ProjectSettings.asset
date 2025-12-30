@@ -931,10 +931,10 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: c2b9450f-c405-45ee-8fa1-1e4d4e4ca484
+  cloudProjectId: 2e32c81f-ddc2-4da3-91f9-25ba6bc02e7e
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: SupeRun 2025-11-17_18-24-52
+  projectName: SupeRun
   organizationId: mishaaskarov
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0

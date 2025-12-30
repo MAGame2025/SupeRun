@@ -608,8 +608,10 @@ GameObject:
   - component: {fileID: 8573772079706687805}
   - component: {fileID: 8429363396921653122}
   - component: {fileID: 7160267632687545557}
+  - component: {fileID: 4531877663963437340}
+  - component: {fileID: 5295575649205494128}
   m_Layer: 7
-  m_Name: PlayerNoJitter
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -679,14 +681,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2965674475673373541}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a1431693d113d643b3b0803f7ab8ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMotor
   currentSpeed: 0
   isGrounded: 0
-  isSurfing: 0
   gravity: -25
   terminalVelocity: -50
   groundCheckDistance: 0.2
@@ -697,12 +698,67 @@ MonoBehaviour:
   groundAcceleration: 60
   groundDeceleration: 60
   airAcceleration: 25
-  slideFriction: 3
+  groundProjectionStrength: 0.35
+  preserveBunnyhopSpeedOnLanding: 1
+  bunnyhopLandingGrace: 0.12
+  bunnyhopBrakeDecel: 80
+  slideFriction: 2
   slideSlopeAccel: 25
   minSlideSlopeAngle: 5
+  slopeFrictionExtraAtMaxAngle: 8
+  slopeFrictionMaxAngle: 60
+  slopeFrictionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  downhillFrictionMultiplier: 0.35
+  preserveSlideMomentumInAir: 1
+  slideAirSteer: 0.35
+  slideGroundSteer: 0.5
+  enableRampLaunch: 1
+  rampLaunchMinSpeed: 9
+  rampLaunchMinSlopeAngle: 4
+  rampLaunchVerticalMultiplier: 0.9
+  rampLaunchMaxVertical: 14
+  slideUphillNeverGrounded: 1
+  uphillNeverGroundedMinSpeed: 3.5
+  uphillNeverGroundedMinSlope: 2
+  uphillStickDownClamp: -3
+  groundedStickVelocity: -0.75
+  detachMinSlopeAngle: 1.5
+  detachCrestDot: 0.15
+  downhillOnlyGroundedWhileSliding: 1
+  downhillDotEpsilon: 0.05
+  downhillMinSlopeAngle: 0.75
+  uphillDownhillDotThreshold: 0.25
   externalPushDamping: 5
   pushCooldown: 2
-  enableSteepSlopeSurfing: 0
+  debugClampMaxSpeed: 1
+  debugMaxPlanarSpeed: 25
+  debugIsSlidingFrame: 1
+  debugSlopeState: 0
+  debugSlopeAngle: 0
+  debugAlongDown: 0
 --- !u!114 &8573772079706687805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,7 +766,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2965674475673373541}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed9277cda32881c478078a59d3f84895, type: 3}
   m_Name: 
@@ -719,11 +775,11 @@ MonoBehaviour:
   runSpeed: 14
   jumpForce: 7
   maxJumps: 3
-  slideDuration: 3
-  slideSpeedMultiplier: 1.5
+  slideSpeedBoost: 0.2
   rotateSpeed: 20
-  faceCameraWhenIdle: 0
+  faceCameraWhenIdle: 1
   inputReader: {fileID: 8803146272684797320}
+  currentState: 0
 --- !u!114 &8429363396921653122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -767,6 +823,73 @@ MonoBehaviour:
     m_Bits: 512
   maxHits: 32
   logPrompt: 0
+--- !u!114 &4531877663963437340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2965674475673373541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffc7654afd0707f4da83c26b2360f2fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdvancedPlayerMotor
+  maxSpeed: 10
+  groundAccel: 40
+  groundDecel: 20
+  airAccel: 40
+  gravity: -20
+  terminalVelocity: -55
+  jumpForce: 13
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 584
+  groundCheckExtra: 0.25
+  stickVelLowSpeed: -4
+  stickVelHighSpeed: -0.5
+  stickFadeStartSpeed: 7
+  stickFadeEndSpeed: 11.5
+  crestMinSpeed: 8
+  crestNormalChangeDeg: 5
+  crestPopMultiplier: 0.08
+  crestPopMax: 7
+  slopeGravityMultiplier: 1.5
+  minSlopeGravityAngle: 1
+  slideFriction: 20
+  slideAccelMultiplier: 1.25
+  slideMaxSpeedMultiplier: 1.15
+  slideStartMinSlopeAngle: 2
+  slideStartAccel: 12
+  slideStartForwardNudge: 1.5
+  slideStartForwardTime: 0.08
+  groundVelocityProjectionStrength: 0.25
+  groundProjectionMinSpeed: 1
+  debugSpeed: 0
+  debugEnergy: 0
+  debugAlongDown: 0
+  debugSlopeAngle: 0
+  debugGrounded: 0
+  debugSliding: 0
+  debugCrestDetach: 0
+--- !u!114 &5295575649205494128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2965674475673373541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f52018297214945b2e117de4a6108c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdvancedCharacterController
+  inputReader: {fileID: 8803146272684797320}
+  playerCamera: {fileID: 5401450992263443042}
+  maxSpeed: 10
+  runMultiplier: 1.5
+  rotateToMoveDir: 1
+  rotateSpeed: 12
 --- !u!1 &3376186059384937517
 GameObject:
   m_ObjectHideFlags: 0

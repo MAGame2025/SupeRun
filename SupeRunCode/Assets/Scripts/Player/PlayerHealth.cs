@@ -112,6 +112,13 @@ public class PlayerHealth : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
+        // --- Cloud Save at end of run (Death) ---
+        if (SRProgressManager.Instance != null)
+        {
+            SRProgressManager.Instance.RecordRunEnded(died: true);
+            SRProgressManager.Instance.SaveToCloud();
+        }
+
         // Show game over screen
         if (gameOverUI != null)
         {

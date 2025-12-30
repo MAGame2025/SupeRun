@@ -12,25 +12,27 @@ public class SREnemyHealth : MonoBehaviour
     [SerializeField] private int xpPerOrb = 2;
 
     private bool isDead;
-
     private float currentHealth;
     private SREnemyLite enemy;
 
     private void Awake()
     {
         enemy = GetComponent<SREnemyLite>();
-        currentHealth = maxHealth;
+        Initialize(); // ensures both health + isDead are correct at start
     }
 
     public void Initialize()
     {
-        // Call this when spawning from the pool, to reset HP.
+        // Call this when spawning from the pool, to reset HP + state.
+        isDead = false;
         currentHealth = maxHealth;
     }
 
     public void TakeDamage(float amount)
     {
+        if (isDead) return;
         if (amount <= 0f) return;
+
         currentHealth -= amount;
 
         if (currentHealth <= 0f)
@@ -43,6 +45,9 @@ public class SREnemyHealth : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
+
+        // Count kill (only real deaths)
+        SRRunStats.Instance?.AddKill(1);
 
         // Drop XP orbs
         if (SRXpManager.Instance != null)

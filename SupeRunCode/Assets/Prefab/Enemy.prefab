@@ -175,13 +175,43 @@ MonoBehaviour:
     m_Bits: 72
   groundMask:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 8
   maxClimbHeight: 8
+  enableSlopeFollow: 1
+  slopeProbeDistance: 1.8
+  obstacleProbeDistance: 0.6
+  slopeProbeStartHeight: 0.8
+  minSlopeAngle: 3
+  slopeProbeIntervalFrames: 2
+  blockedBeforeHopTime: 0.2
+  hopUpVelocity: 4.5
+  hopCooldown: 0.25
   knockbackDamping: 10
+  contactDamage: 10
+  contactDamageInterval: 0.5
+  contactRadius: 1.2
   blockedBeforeClimbTime: 0.75
   minForwardSpeed: 0.5
   climbCheckInterval: 2
+  farSpeedMultiplier: 0.5
+  farObstacleRadius: 0.35
+  farObstacleCastHeight: 0.8
+  farGroundSnapCastHeight: 2
+  farGroundSnapDistance: 10
+  farGroundOffset: 0.05
+  hopSpawnGraceTime: 0.5
+  steepSlopeAngle: 20
+  spawnHeightOffset: 0.6
   crown: {fileID: 197390555193127802}
+  debugThisEnemy: 0
+  debugLastDeltaY: 0
+  debugIsClimbing: 0
+  debugVerticalVelocity: 0
+  debugSlopeAngle: 0
+  debugLastClimbHitName: 
+  debugLastClimbHitLayer: 0
+  debugLastSlopeHitName: 
+  debugLastSlopeHitLayer: 0
 --- !u!114 &6769353620243787175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +225,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SREnemyHealth
   maxHealth: 100
+  xpOrbsMin: 2
+  xpOrbsMax: 5
+  xpPerOrb: 2
 --- !u!1001 &1966748056894035065
 PrefabInstance:
   m_ObjectHideFlags: 0

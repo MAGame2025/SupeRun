@@ -36,10 +36,18 @@ public class SREnemySpawner : MonoBehaviour
     [Header("Pools")]
     [SerializeField] private EnemyPool[] enemyPools;
 
-    [Header("Spawn Ring")]
-    [SerializeField] private float spawnRadius = 25f;
+    [Header("Spawn Ring (Random Radius)")]
+    [Tooltip("Minimum spawn radius from the player.")]
+    [SerializeField] private float spawnRadiusMin = 20f;
+
+    [Tooltip("Maximum spawn radius from the player.")]
+    [SerializeField] private float spawnRadiusMax = 35f;
+
     [SerializeField] private float spawnRaycastHeight = 20f;
     [SerializeField] private LayerMask groundMask = ~0;
+
+    [Header("Spawn Height")]
+    [SerializeField] private float spawnHeightOffset = 0.6f;
 
     [Header("Waves")]
     [SerializeField] private int initialEnemiesPerWave = 10;
@@ -68,9 +76,16 @@ public class SREnemySpawner : MonoBehaviour
     [Tooltip("Absolute hard cap on enemies, even late-game.")]
     [SerializeField] private int hardMaxEnemies = 800;
 
-    [Header("Spawn Smoothing")]
-    [Tooltip("How many enemies we are allowed to spawn per frame (to avoid spikes).")]
-    [SerializeField] private int spawnPerFrame = 10;
+    [Header("Gradual Spawn Timing")]
+    [Tooltip("Only the first portion of the wave interval spawns enemies. Example: 0.5 = first half spawns, second half no spawns.")]
+    [Range(0.1f, 0.9f)]
+    [SerializeField] private float spawnWindowFraction = 0.5f;
+
+    [Tooltip("Never spawn more frequently than this, even if the wave wants a lot of enemies.")]
+    [SerializeField] private float minSecondsBetweenSpawns = 0.08f;
+
+    [Tooltip("Safety cap: maximum number of enemies we will spawn in a single Update tick.")]
+    [SerializeField] private int maxSpawnPerTick = 5;
 
     [Header("Wave Selection Mode")]
     [Tooltip("If true, every wave uses a random pool. If false, use WaveOverrides where defined, otherwise random.")]
@@ -93,9 +108,26 @@ public class SREnemySpawner : MonoBehaviour
     private int pendingToSpawnThisWave;
     private Transform cachedPlayer;
 
+    // gradual spawn state
+    private float currentWaveInterval;
+    private float spawnWindowTimeRemaining;
+    private float spawnCooldownTimer;
+    private float plannedSecondsBetweenSpawns;
+
     // cached refs
     private SREnemyManager enemyManager;
     private Transform cachedTransform;
+
+    private void OnValidate()
+    {
+        if (spawnRadiusMin < 0f) spawnRadiusMin = 0f;
+        if (spawnRadiusMax < spawnRadiusMin) spawnRadiusMax = spawnRadiusMin;
+
+        if (minSecondsBetweenSpawns < 0.01f) minSecondsBetweenSpawns = 0.01f;
+        if (maxSpawnPerTick < 1) maxSpawnPerTick = 1;
+
+        if (hardMaxEnemies < baseMaxEnemies) hardMaxEnemies = baseMaxEnemies;
+    }
 
     private void Awake()
     {
@@ -123,6 +155,9 @@ public class SREnemySpawner : MonoBehaviour
     {
         foreach (var pool in enemyPools)
         {
+            if (pool == null || pool.prefab == null)
+                continue;
+
             int count = Mathf.Max(0, pool.prewarmCount);
             pool.pool = new Queue<SREnemyLite>(count);
 
@@ -146,13 +181,30 @@ public class SREnemySpawner : MonoBehaviour
 
         cachedPlayer = enemyManager.Player;
 
-        // 1. Continue spawning any pending enemies for this wave
-        if (pendingToSpawnThisWave > 0)
+        // 1) Gradual spawning for current wave (only during the spawn window)
+        if (pendingToSpawnThisWave > 0 && spawnWindowTimeRemaining > 0f)
         {
-            SpawnPendingBatch();
+            spawnWindowTimeRemaining -= Time.deltaTime;
+
+            if (spawnCooldownTimer > 0f)
+                spawnCooldownTimer -= Time.deltaTime;
+
+            int spawnsThisTick = 0;
+            while (pendingToSpawnThisWave > 0 &&
+                   spawnWindowTimeRemaining > 0f &&
+                   spawnCooldownTimer <= 0f &&
+                   spawnsThisTick < maxSpawnPerTick)
+            {
+                SpawnOneEnemy();
+                pendingToSpawnThisWave--;
+                spawnsThisTick++;
+
+                // Schedule next spawn
+                spawnCooldownTimer = plannedSecondsBetweenSpawns;
+            }
         }
 
-        // 2. Wave timer
+        // 2) Wave timer
         timeToNextWave -= Time.deltaTime;
         if (timeToNextWave <= 0f)
         {
@@ -199,20 +251,16 @@ public class SREnemySpawner : MonoBehaviour
 
         if (randomWaves)
         {
-            // Pure random mode: ignore overrides entirely.
             ChooseRandomPool();
             return;
         }
 
-        // Scripted mode: try to find an override for this wave.
         currentWaveOverride = GetWaveOverrideFor(currentWave);
 
         if (currentWaveOverride != null && currentWaveOverride.enemyPrefab != null)
         {
-            // Use the override prefab.
             currentWaveOverridePrefab = currentWaveOverride.enemyPrefab;
 
-            // Try to find a pool that uses this prefab.
             currentWavePoolIndex = -1;
             for (int p = 0; p < enemyPools.Length; p++)
             {
@@ -225,7 +273,6 @@ public class SREnemySpawner : MonoBehaviour
                 }
             }
 
-            // If no pool found, we instantiate directly (no pooling).
             if (currentWavePoolIndex == -1 || currentWavePool == null)
             {
                 currentWaveUsesPooling = false;
@@ -233,7 +280,6 @@ public class SREnemySpawner : MonoBehaviour
         }
         else
         {
-            // No override for this wave: fallback to random pool.
             ChooseRandomPool();
         }
     }
@@ -243,26 +289,21 @@ public class SREnemySpawner : MonoBehaviour
         if (enemyPools.Length == 0 || enemyManager == null)
             return;
 
-        // Decide which source this wave will use (random or override).
         SetupWaveSource();
 
-        // How many this wave wants to add (before cap).
         int enemiesThisWave;
 
         if (!randomWaves &&
             currentWaveOverride != null &&
             currentWaveOverride.customCount > 0)
         {
-            // Use the custom count for this specific wave.
             enemiesThisWave = currentWaveOverride.customCount;
         }
         else
         {
-            // Default formula.
             enemiesThisWave = initialEnemiesPerWave + (currentWave - 1) * enemiesPerWaveIncrease;
         }
 
-        // Compute current cap.
         int currentMaxEnemies = baseMaxEnemies + (currentWave - 1) * maxEnemiesIncreasePerWave;
         currentMaxEnemies = Mathf.Min(currentMaxEnemies, hardMaxEnemies);
 
@@ -272,23 +313,40 @@ public class SREnemySpawner : MonoBehaviour
         if (freeSlots <= 0)
         {
             pendingToSpawnThisWave = 0;
+            spawnWindowTimeRemaining = 0f;
             return;
         }
 
         pendingToSpawnThisWave = Mathf.Min(enemiesThisWave, freeSlots);
+
+        // ---- Gradual spawn setup ----
+        // We want all spawns to occur during the FIRST half of the wave interval.
+        float spawnWindow = Mathf.Max(0.01f, currentWaveInterval * spawnWindowFraction);
+        spawnWindowTimeRemaining = spawnWindow;
+
+        // Space out spawns evenly across the window, but never faster than minSecondsBetweenSpawns.
+        if (pendingToSpawnThisWave > 0)
+        {
+            float evenSpacing = spawnWindow / pendingToSpawnThisWave;
+            plannedSecondsBetweenSpawns = Mathf.Max(minSecondsBetweenSpawns, evenSpacing);
+        }
+        else
+        {
+            plannedSecondsBetweenSpawns = minSecondsBetweenSpawns;
+        }
+
+        // Start spawning immediately
+        spawnCooldownTimer = 0f;
     }
 
     private void ScheduleNextWave()
     {
         currentWave++;
 
-        // Default formula-based interval
         float interval = initialWaveInterval * Mathf.Pow(waveIntervalMultiplier, currentWave - 1);
-
         if (interval < minWaveInterval)
             interval = minWaveInterval;
 
-        // If we're in scripted mode, allow this wave to override the interval
         if (!randomWaves)
         {
             var ov = GetWaveOverrideFor(currentWave);
@@ -298,68 +356,70 @@ public class SREnemySpawner : MonoBehaviour
             }
         }
 
+        currentWaveInterval = interval;
         timeToNextWave = interval;
     }
 
-
-    private void SpawnPendingBatch()
+    private void SpawnOneEnemy()
     {
         if (cachedPlayer == null)
             return;
 
-        int toSpawnNow = Mathf.Min(spawnPerFrame, pendingToSpawnThisWave);
-        pendingToSpawnThisWave -= toSpawnNow;
+        bool isElite = Random.value < eliteChance;
 
-        for (int i = 0; i < toSpawnNow; i++)
+        SREnemyLite enemy = null;
+
+        if (currentWaveUsesPooling && currentWavePool != null)
         {
-            bool isElite = Random.value < eliteChance;
-
-            SREnemyLite enemy = null;
-
-            // 1) If this wave uses pooling and has a pool, use it.
-            if (currentWaveUsesPooling && currentWavePool != null)
-            {
-                enemy = GetEnemyFromPool(currentWavePool);
-            }
-            // 2) If we have an override prefab but no pool, instantiate directly (boss/special wave).
-            else if (currentWaveOverridePrefab != null)
-            {
-                enemy = Instantiate(currentWaveOverridePrefab, cachedTransform);
-            }
-            // 3) Fallback safety: pick from some pool so we don't spawn null.
-            else if (enemyPools.Length > 0)
-            {
-                int fallbackIndex = Mathf.Clamp(currentWavePoolIndex, 0, enemyPools.Length - 1);
-                enemy = GetEnemyFromPool(enemyPools[fallbackIndex]);
-                currentWavePool = enemyPools[fallbackIndex];
-                currentWavePoolIndex = fallbackIndex;
-                currentWaveUsesPooling = true;
-            }
-
-            if (enemy == null)
-                continue;
-
-            Vector3 spawnPos = GetSpawnPositionAroundPlayer(cachedPlayer.position);
-            enemy.transform.position = spawnPos;
-            enemy.gameObject.SetActive(true);
-
-            // If we are instantiating something not in any pool, report -1
-            // so DespawnEnemy will just SetActive(false) and not enqueue.
-            int poolIndexForEnemy = currentWaveUsesPooling ? currentWavePoolIndex : -1;
-
-            enemy.Initialize(cachedPlayer, isElite, poolIndexForEnemy);
-            var health = enemy.GetComponent<SREnemyHealth>();
-            if (health != null)
-            {
-                health.Initialize();
-            }
-
+            enemy = GetEnemyFromPool(currentWavePool);
         }
+        else if (currentWaveOverridePrefab != null)
+        {
+            enemy = Instantiate(currentWaveOverridePrefab, cachedTransform);
+        }
+        else if (enemyPools.Length > 0)
+        {
+            int fallbackIndex = Mathf.Clamp(currentWavePoolIndex, 0, enemyPools.Length - 1);
+            enemy = GetEnemyFromPool(enemyPools[fallbackIndex]);
+            currentWavePool = enemyPools[fallbackIndex];
+            currentWavePoolIndex = fallbackIndex;
+            currentWaveUsesPooling = true;
+        }
+
+        if (enemy == null)
+            return;
+
+        Vector3 spawnPos = GetSpawnPositionAroundPlayer(cachedPlayer.position);
+
+        // --- per-prefab safe y offset (cheap) ---
+        float yOffset = spawnHeightOffset;
+
+        var cc = enemy.GetComponent<CharacterController>();
+        if (cc != null)
+        {
+            // bottom of capsule relative to transform position:
+            // bottomLocal = center.y - height/2
+            float bottomLocal = cc.center.y - (cc.height * 0.5f);
+
+            // we want bottom to be above ground by ~0.05
+            yOffset = Mathf.Max(yOffset, -bottomLocal + 0.05f);
+        }
+
+        spawnPos.y += yOffset;
+        enemy.transform.position = spawnPos;
+
+
+        enemy.gameObject.SetActive(true);
+
+        int poolIndexForEnemy = currentWaveUsesPooling ? currentWavePoolIndex : -1;
+
+        enemy.Initialize(cachedPlayer, isElite, poolIndexForEnemy);
+        enemy.ResetHealthIfAny();
     }
 
     private SREnemyLite GetEnemyFromPool(EnemyPool pool)
     {
-        if (pool.pool.Count > 0)
+        if (pool != null && pool.pool != null && pool.pool.Count > 0)
             return pool.pool.Dequeue();
 
         var enemy = Instantiate(pool.prefab, cachedTransform);
@@ -381,8 +441,15 @@ public class SREnemySpawner : MonoBehaviour
 
     private Vector3 GetSpawnPositionAroundPlayer(Vector3 playerPos)
     {
-        Vector2 circle = Random.insideUnitCircle.normalized;
-        Vector3 flatOffset = new Vector3(circle.x, 0f, circle.y) * spawnRadius;
+        // Random ring radius between min/max
+        Vector2 dir2 = Random.insideUnitCircle;
+        if (dir2.sqrMagnitude < 0.0001f)
+            dir2 = Vector2.right;
+        dir2.Normalize();
+
+        float radius = Random.Range(spawnRadiusMin, spawnRadiusMax);
+
+        Vector3 flatOffset = new Vector3(dir2.x, 0f, dir2.y) * radius;
         Vector3 worldPos = playerPos + flatOffset;
 
         Vector3 rayOrigin = worldPos + Vector3.up * spawnRaycastHeight;

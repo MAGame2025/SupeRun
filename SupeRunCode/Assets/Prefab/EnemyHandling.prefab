@@ -45,8 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SREnemyManager
   player: {fileID: 0}
-  maxFullLogicEnemies: 800
-  fullLogicRadius: 800
+  maxFullLogicEnemies: 400
+  fullLogicRadius: 30
+  farLogicRadius: 80
+  farUpdateIntervalFrames: 10
+  despawnRadius: 120
+  disableComponentsWhenNotFull: 1
+  playerFindIntervalFrames: 30
 --- !u!1 &3520376037889621541
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +147,7 @@ MonoBehaviour:
   eliteChance: 0.1
   baseMaxEnemies: 200
   maxEnemiesIncreasePerWave: 40
-  hardMaxEnemies: 800
+  hardMaxEnemies: 2000
   spawnPerFrame: 10
   randomWaves: 1
   waveOverrides: []

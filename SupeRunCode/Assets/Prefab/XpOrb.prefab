@@ -103,16 +103,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5559de8935fb40e4a96c50261beeca51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::XPOrb
-  orbRenderer: {fileID: 8519376730038842516}
+  pickupRadius: 1.5
+  attractRadius: 13
+  attractSpeed: 6
+  meshRenderer: {fileID: 0}
   blueColor: {r: 0, g: 0, b: 1, a: 1}
   yellowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   orangeColor: {r: 1, g: 0.5, b: 0, a: 1}
   redColor: {r: 1, g: 0, b: 0, a: 1}
-  attractRadius: 13
-  attractSpeed: 6
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!135 &1814644356404214728
 SphereCollider:
   m_ObjectHideFlags: 0
