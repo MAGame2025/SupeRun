@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class AdvancedPlayerMotor : MonoBehaviour
@@ -60,8 +60,7 @@ public class AdvancedPlayerMotor : MonoBehaviour
     [SerializeField] private float slideStartMinSlopeAngle = 2f;   // allow slide-start on small slopes
     [SerializeField] private float slideStartAccel = 12f;          // shove down-slope when crouch pressed
     [SerializeField] private float slideStartForwardNudge = 1.5f;  // if flat, nudge camera-forward a bit
-    [SerializeField] private float slideStartForwardTime = 0.08f;  // short time window feels like a “kick”
-
+    [SerializeField] private float slideStartForwardTime = 0.08f;  // short time window feels like a â€œkickâ€
 
     [Header("Ground Normal Influence (gentle)")]
     [Range(0f, 1f)]
@@ -69,7 +68,22 @@ public class AdvancedPlayerMotor : MonoBehaviour
 
     public float groundProjectionMinSpeed = 1.0f;          // don't mess with tiny velocities
 
+    [Header("Uphill Effort (Walk/Run)")]
+    [Tooltip("Extra drag only when moving uphill (walking/running).")]
+    public float uphillDrag = 3.0f;
 
+    [Tooltip("Slope angle where uphill drag reaches full strength.")]
+    public float uphillDragFullAngle = 35f;
+
+    [Header("Sliding Control (Terrain-led)")]
+    [Tooltip("How much the player can steer while sliding on flat ground (0..1).")]
+    [Range(0f, 1f)] public float slideSteerFlat = 0.55f;
+
+    [Tooltip("How much the player can steer while sliding on steep slopes (0..1).")]
+    [Range(0f, 1f)] public float slideSteerSteep = 0.08f;
+
+    [Tooltip("Slope angle considered 'steep' for slide steering falloff.")]
+    public float slideSteerSteepAngle = 45f;
 
 
     [Header("Debug (read-only)")]
@@ -99,8 +113,6 @@ public class AdvancedPlayerMotor : MonoBehaviour
 
     private float slideStartTimer;
     private bool prevSlideHeld;
-
-
 
     private void Awake()
     {
@@ -132,7 +144,6 @@ public class AdvancedPlayerMotor : MonoBehaviour
             slideStartTimer = slideStartForwardTime;
         }
 
-
         // Desired speed + accel rules
         float speedCap = targetSpeed * (sliding ? slideMaxSpeedMultiplier : 1f);
         speedCap = Mathf.Max(0f, speedCap);
@@ -141,29 +152,73 @@ public class AdvancedPlayerMotor : MonoBehaviour
         if (desiredDir.sqrMagnitude > 1f)
             desiredDir.Normalize();
 
+        // If grounded, align input direction to the ground plane to avoid jitter / uphill sticking
+        if (grounded && hasSupport)
+        {
+            Vector3 onPlane = Vector3.ProjectOnPlane(desiredDir, groundNormal);
+            if (onPlane.sqrMagnitude > 0.0001f)
+                desiredDir = onPlane.normalized;
+        }
+
         Vector3 desiredVel = desiredDir * speedCap;
 
         // Acceleration (inertia-based)
         if (grounded)
         {
-            float accel = (desiredVel.magnitude > planarVelocity.magnitude) ? groundAccel : groundDecel;
-            planarVelocity = Vector3.MoveTowards(planarVelocity, desiredVel, accel * Time.deltaTime);
+            if (!sliding)
+            {
+                float accel = (desiredVel.magnitude > planarVelocity.magnitude) ? groundAccel : groundDecel;
+                planarVelocity = Vector3.MoveTowards(planarVelocity, desiredVel, accel * Time.deltaTime);
+            }
+            else
+            {
+                // Sliding: don't chase desired velocity.
+                // Keep momentum, allow mild steering that gets weaker on steeper slopes.
+
+                float speed = planarVelocity.magnitude;
+
+                // If basically stopped, allow desired to start direction (your slide-start also helps)
+                Vector3 currentDir = (speed > 0.001f) ? (planarVelocity / speed) : desiredDir;
+
+                // Compute steering strength based on slope angle (flat -> stronger steer, steep -> weaker steer)
+                float slopeAngle = Vector3.Angle(groundNormal, Vector3.up);
+                float tSteep = Mathf.Clamp01(slopeAngle / Mathf.Max(0.001f, slideSteerSteepAngle));
+                float steerStrength = Mathf.Lerp(slideSteerFlat, slideSteerSteep, tSteep);
+
+                // Also reduce steering when there's no input
+                if (desiredDir.sqrMagnitude < 0.001f)
+                    steerStrength = 0f;
+
+                Vector3 blendedDir = Vector3.Slerp(currentDir, desiredDir, steerStrength);
+                if (blendedDir.sqrMagnitude > 0.0001f)
+                    blendedDir.Normalize();
+
+                planarVelocity = blendedDir * speed;
+            }
         }
         else
         {
             planarVelocity = Vector3.MoveTowards(planarVelocity, desiredVel, airAccel * Time.deltaTime);
         }
 
+
         // Always apply some friction when grounded (including during slide)
+        // BUT: don't constantly brake while the player is actively driving movement (causes uphill jitter/fighting)
         if (grounded)
         {
-            float fric = sliding ? slideFriction : groundDecel;
+            bool hasInput = desiredDir.sqrMagnitude >= 0.001f;
 
-            // friction is stronger when no input
-            if (desiredDir.sqrMagnitude < 0.001f)
-                fric *= 1.25f;
+            // Apply friction only when there's no input, or when sliding (sliding is friction-driven)
+            if (!hasInput || sliding)
+            {
+                float fric = sliding ? slideFriction : groundDecel;
 
-            planarVelocity = Vector3.MoveTowards(planarVelocity, Vector3.zero, fric * Time.deltaTime);
+                // friction is stronger when no input
+                if (!hasInput)
+                    fric *= 1.25f;
+
+                planarVelocity = Vector3.MoveTowards(planarVelocity, Vector3.zero, fric * Time.deltaTime);
+            }
         }
 
         // Slope gravity: adds speed downhill, removes speed uphill (based on slope angle)
@@ -192,6 +247,34 @@ public class AdvancedPlayerMotor : MonoBehaviour
                 }
             }
         }
+
+        // Uphill effort: add mild drag when walking/running uphill (not sliding)
+        if (grounded && hasSupport && !sliding)
+        {
+            float slopeAngle = Vector3.Angle(groundNormal, Vector3.up);
+
+            if (slopeAngle > 0.5f && planarVelocity.sqrMagnitude > 0.0001f)
+            {
+                Vector3 downSlope = Vector3.ProjectOnPlane(Vector3.down, groundNormal);
+                if (downSlope.sqrMagnitude > 0.0001f)
+                {
+                    downSlope.Normalize();
+
+                    // uphillness: 1 when moving straight uphill, 0 when flat/sideways/downhill
+                    float uphillness = Mathf.Clamp01(Vector3.Dot(planarVelocity.normalized, -downSlope));
+
+                    // scale by slope angle (0..1)
+                    float angleFactor = Mathf.Clamp01(slopeAngle / Mathf.Max(0.001f, uphillDragFullAngle));
+
+                    float drag = uphillDrag * uphillness * angleFactor;
+
+                    // apply as a gentle speed reduction along movement direction
+                    planarVelocity = Vector3.MoveTowards(planarVelocity, Vector3.zero, drag * Time.deltaTime);
+                }
+            }
+        }
+
+
         // Gentle ground-normal influence on velocity direction (camera still leads)
         // Scales stronger downhill, weaker uphill, algorithmically.
         if (grounded && hasSupport && planarVelocity.magnitude >= groundProjectionMinSpeed)
@@ -227,7 +310,6 @@ public class AdvancedPlayerMotor : MonoBehaviour
         // Slide start: when crouch is pressed, start moving even from standstill.
         // Prefer down-slope direction if there is any slope, otherwise a small camera-forward nudge.
         if (sliding && hasSupport && (slidePressed || planarVelocity.magnitude < 0.5f))
-
         {
             float slopeAngle = Vector3.Angle(groundNormal, Vector3.up);
 
@@ -250,21 +332,17 @@ public class AdvancedPlayerMotor : MonoBehaviour
 
                 if (forward.sqrMagnitude > 0.0001f)
                     planarVelocity += forward * slideStartForwardNudge;
-
-
             }
 
             if (slideStartTimer > 0f)
                 slideStartTimer -= Time.deltaTime;
-
         }
         else
         {
             slideStartTimer = 0f;
         }
 
-
-        // Crest detach: if ground normal changes sharply and we’re fast, unground + pop
+        // Crest detach: if ground normal changes sharply and weâ€™re fast, unground + pop
         debugCrestDetach = false;
         if (grounded && prevGrounded)
         {
@@ -290,7 +368,7 @@ public class AdvancedPlayerMotor : MonoBehaviour
         // Gravity / mild grounding
         if (grounded)
         {
-            // “Mild stick”: fade downward glue as speed rises
+            // â€œMild stickâ€: fade downward glue as speed rises
             float spd = planarVelocity.magnitude;
             float t = 0f;
             if (stickFadeEndSpeed > stickFadeStartSpeed)
@@ -318,6 +396,7 @@ public class AdvancedPlayerMotor : MonoBehaviour
         debugSpeed = planarVelocity.magnitude;
         debugEnergy = 0.5f * debugSpeed * debugSpeed;
     }
+
     private void ProbeGround()
     {
         hasSupport = false;
@@ -346,17 +425,26 @@ public class AdvancedPlayerMotor : MonoBehaviour
         }
     }
 
-
     private bool ComputeGrounded()
     {
         if (!hasSupport)
             return false;
 
-        // Don’t become grounded if we are moving upward
+        // DonÂ’t become grounded if we are moving upward
         if (verticalVelocity > 0.2f)
             return false;
 
-        // Use CC grounded OR support
-        return controller.isGrounded || hasSupport;
+        // Require the support hit to be close (prevents re-grounding while effectively airborne)
+        // Tune this if needed, but keep it small to avoid "magnet feet"
+        float closeEnough = 0.25f;
+        if (supportHit.distance > closeEnough)
+            return false;
+
+        // Respect the CharacterController's slope limit (prevents "sticky" behavior on too-steep surfaces)
+        float slopeAngle = Vector3.Angle(groundNormal, Vector3.up);
+        if (slopeAngle > controller.slopeLimit)
+            return false;
+
+        return true;
     }
 }

@@ -2287,7 +2287,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 298822746649172121, guid: 9aadd92d18605ba4cbb06669fc5f75d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2965674475673373541, guid: 9aadd92d18605ba4cbb06669fc5f75d3, type: 3}
       propertyPath: m_Name
@@ -2295,11 +2295,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2965674475673373541, guid: 9aadd92d18605ba4cbb06669fc5f75d3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4371569398775571177, guid: 9aadd92d18605ba4cbb06669fc5f75d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5448224272670642915, guid: 9aadd92d18605ba4cbb06669fc5f75d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3532,7 +3532,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1030012190
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5595,7 +5595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3520376037889621541, guid: f19e65d3e7ec0b247bcd34ccd5c9483c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4391118386505035501, guid: f19e65d3e7ec0b247bcd34ccd5c9483c, type: 3}
       propertyPath: player
@@ -6466,7 +6466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3520376037889621541, guid: f19e65d3e7ec0b247bcd34ccd5c9483c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4391118386505035501, guid: f19e65d3e7ec0b247bcd34ccd5c9483c, type: 3}
       propertyPath: player
@@ -6660,7 +6660,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7500404930162529296, guid: 37e66a8b193b77142ada62cbee116b6b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8914987483459973293, guid: 37e66a8b193b77142ada62cbee116b6b, type: 3}
       propertyPath: size

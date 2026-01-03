@@ -451,8 +451,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2895986479954911682}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.11940312, y: 0.7235194, z: 0.12943058, w: 0.6674656}
-  m_LocalPosition: {x: -4.9378986, y: 0.5656842, z: 0.3986206}
+  m_LocalRotation: {x: -0.062556855, y: 0.79372144, z: 0.08284318, w: 0.59935796}
+  m_LocalPosition: {x: -5.7829285, y: 1.1251603, z: 1.6455193}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -610,6 +610,9 @@ GameObject:
   - component: {fileID: 7160267632687545557}
   - component: {fileID: 4531877663963437340}
   - component: {fileID: 5295575649205494128}
+  - component: {fileID: 6908821247025185078}
+  - component: {fileID: -2858934394590100470}
+  - component: {fileID: -40028756435803512}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -656,10 +659,10 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 80
+  m_Radius: 0.55
+  m_SlopeLimit: 60
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.05
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &8803146272684797320
@@ -865,6 +868,11 @@ MonoBehaviour:
   slideStartForwardTime: 0.08
   groundVelocityProjectionStrength: 0.25
   groundProjectionMinSpeed: 1
+  uphillDrag: 3
+  uphillDragFullAngle: 35
+  slideSteerFlat: 0.55
+  slideSteerSteep: 0.08
+  slideSteerSteepAngle: 45
   debugSpeed: 0
   debugEnergy: 0
   debugAlongDown: 0
@@ -890,6 +898,126 @@ MonoBehaviour:
   runMultiplier: 1.5
   rotateToMoveDir: 1
   rotateSpeed: 12
+--- !u!114 &6908821247025185078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2965674475673373541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c3063e560f33844baf2536315371f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SRPlayerMotor
+  ccGrounded: 0
+  groundContact: 0
+  groundHitDistance: 0
+  groundAngle: 0
+  stickActive: 0
+  groundNormal: {x: 0, y: 1, z: 0}
+  planarVelocity: {x: 0, y: 0, z: 0}
+  verticalVelocity: 0
+  planarSpeed: 0
+  walkAccel: 55
+  runAccel: 110
+  airAccel: 28
+  walkSpeedCap: 8.5
+  runSpeedCap: 14
+  airSpeedCap: 25
+  capDamping: 10
+  groundFriction: 9
+  airDrag: 0.8
+  uphillSlowStrength: 4
+  downhillAssistStrength: 2
+  crouchHeightMultiplier: 0.5
+  crouchTransitionSpeed: 25
+  slideAccelMultiplier: 0.12
+  slideFriction: 1
+  slideSpeedCap: 22
+  slideCapDamping: 10
+  slideSlopeGravity: 24
+  headroomCheckExtra: 0.05
+  slideSteer: 0.05
+  slideDownhillBias: 0.6
+  slideEntrySeedSpeed: 0.5
+  slideEntrySpeedThreshold: 0.25
+  slideEntryMinSlopeAngle: 6
+  wallScrapeDamping: 0.88
+  slideWeightVelocity: 0.6
+  slideWeightDownhill: 0
+  slideWeightInput: 0.4
+  minDownhillAngle: 6
+  useGroundDownhillInSlide: 1
+  slideNormalLerpSpeed: 20
+  slideDirLerpSpeed: 14
+  slideMinStableSpeed: 1.25
+  slideFlipResistance: 0.85
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 584
+  probeDistance: 0.45
+  probeRadius: 0.3
+  maxWalkSlopeAngle: 60
+  maxSlideSlopeAngle: 80
+  gravity: -30
+  terminalVelocity: -60
+  stickToGroundEnabled: 1
+  stickToGroundVelocity: -10
+  jumpImpulse: 10
+  extraJumps: 1
+  fastFallThreshold: -12
+  fastFallClamp: -2
+  visualProbeDistance: 2.5
+  visualProbeRadius: 0.35
+  visualGroundContact: 0
+  visualGroundDistance: Infinity
+  visualGroundNormal: {x: 0, y: 1, z: 0}
+  visualModelRoot: {fileID: 0}
+  crouchVisualScaleY: 0.7
+  crouchVisualYOffset: -0.35
+  visualCrouchLerpSpeed: 25
+--- !u!114 &-2858934394590100470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2965674475673373541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b44dceb5f8603c46a83d7d14b92f34f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SRPlayerController
+  input: {fileID: 8803146272684797320}
+  cameraTransform: {fileID: 2032731216008670702}
+  motor: {fileID: 6908821247025185078}
+  jumpBufferTime: 0.12
+  forcedSlideDuration: 1
+  forcedSlideRecheckLead: 0.05
+--- !u!114 &-40028756435803512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2965674475673373541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86132c6b721f6cd4181a62b886d9bd97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SRModelGroundAligner
+  motor: {fileID: 6908821247025185078}
+  model: {fileID: 6284878947808890582}
+  yawSource: {fileID: 5448224272670642915}
+  tiltStartDistance: 0.9
+  tiltStopDistance: 1.4
+  tiltLerpSpeed: 18
+  uprightLerpSpeed: 14
+  maxTiltAngle: 55
+  faceMovementDirection: 1
+  yawLerpSpeed: 16
+  minSpeedToTurn: 0.15
 --- !u!1 &3376186059384937517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,8 +1887,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5960410912483318942}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.11933722, y: 0.72350436, z: 0.12934792, w: 0.6675097}
-  m_LocalPosition: {x: -4.9378986, y: 0.5656842, z: 0.3986206}
+  m_LocalRotation: {x: -0.062556855, y: 0.79372144, z: 0.08284318, w: 0.59935796}
+  m_LocalPosition: {x: -5.7829285, y: 1.1251603, z: 1.6455193}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1824,7 +1952,7 @@ MonoBehaviour:
   TargetOffset: {x: 0, y: 0, z: 0}
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 1, y: 1, z: 1}
+    PositionDamping: {x: 0.5, y: 0.5, z: 0.5}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
@@ -1843,7 +1971,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: 94.615295
+    Value: 105.88358
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -1853,7 +1981,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: -6.485572
+    Value: 1.8600543
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0
@@ -1895,7 +2023,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
   TargetOffset: {x: 0, y: 1, z: 0}
-  Damping: {x: 0.2, y: 0.2}
+  Damping: {x: 0.1, y: 0.1}
   Lookahead:
     Enabled: 0
     Time: 0
@@ -1984,7 +2112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineDeoccluder
   CollideAgainst:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 9
   IgnoreTag: Player
   TransparentLayers:
     serializedVersion: 2
@@ -1994,7 +2122,7 @@ MonoBehaviour:
     Enabled: 1
     DistanceLimit: 0
     MinimumOcclusionTime: 0
-    CameraRadius: 0.4
+    CameraRadius: 0.6
     UseFollowTarget:
       Enabled: 0
       YOffset: 0

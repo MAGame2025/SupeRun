@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "M:\\UnityProjects\\SupeRun\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|m:\\unityprojects\\superun\\assets\\scripts\\player\\playermovement\\srplayermotor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playermovement\\srplayermotor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|m:\\unityprojects\\superun\\assets\\scripts\\player\\playermovement\\srplayercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playermovement\\srplayercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SRPlayerController.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerController.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAowBIAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T13:32:50.074Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SRPlayerMotor.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerMotor.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerMotor.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerMotor.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerMotor.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAUwGYAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T13:32:13.222Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

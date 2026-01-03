@@ -72,10 +72,10 @@ public class AdvancedCharacterController : MonoBehaviour
                 moveDir.Normalize();
         }
 
-        float speed = maxSpeed * (runHeld ? runMultiplier : 1f);
+        float speedCap = maxSpeed * (runHeld ? runMultiplier : 1f);
 
         // Delegate to motor
-        motor.ProcessMove(moveDir, speed, jumpPressed, slideHeld);
+        motor.ProcessMove(moveDir, speedCap, jumpPressed, slideHeld);
 
         // Optional: rotate character to face move direction
         if (rotateToMoveDir && moveDir.sqrMagnitude > 0.0001f)

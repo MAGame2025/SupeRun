@@ -797,6 +797,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 686055525}
   m_CullTransparentMesh: 1
+--- !u!1 &723179948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 723179950}
+  - component: {fileID: 723179949}
+  m_Layer: 0
+  m_Name: ProgressManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &723179949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723179948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 182962c2df4010b4fb2b7f9abd8a62ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SRProgressManager
+  progress:
+    metaGold: 0
+    unlockedWeapons: []
+    unlockedCharacters: []
+    unlockedItems: []
+    completedLevels: []
+    completedChallenges: []
+    totalRuns: 0
+    totalDeaths: 0
+    bestLevelReached: 1
+    lastRunLevelReached: 1
+--- !u!4 &723179950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723179948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 465, y: 442, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &739264357
 GameObject:
   m_ObjectHideFlags: 0
@@ -2444,6 +2499,10 @@ MonoBehaviour:
     unlockedItems: []
     completedLevels: []
     completedChallenges: []
+    totalRuns: 0
+    totalDeaths: 0
+    bestLevelReached: 1
+    lastRunLevelReached: 1
 --- !u!4 &1700506754
 Transform:
   m_ObjectHideFlags: 0
@@ -3786,3 +3845,4 @@ SceneRoots:
   - {fileID: 1115744316}
   - {fileID: 1103326805}
   - {fileID: 1700506754}
+  - {fileID: 723179950}
