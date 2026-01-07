@@ -95,6 +95,9 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        if (SRRunState.IsLevelComplete)
+            return;
+
         if (isDead) return;
         isDead = true;
 

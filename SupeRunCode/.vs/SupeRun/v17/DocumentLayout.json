@@ -3,12 +3,116 @@
   "WorkspaceRootPath": "M:\\UnityProjects\\SupeRun\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|m:\\unityprojects\\superun\\assets\\scripts\\player\\playermovement\\srplayermotor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playermovement\\srplayermotor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|m:\\unityprojects\\superun\\assets\\scripts\\enemy\\isrenemyvisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\isrenemyvisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|m:\\unityprojects\\superun\\assets\\scripts\\player\\playermovement\\srplayercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playermovement\\srplayercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|m:\\unityprojects\\superun\\assets\\scripts\\enemy\\srenemyvisualdriver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\srenemyvisualdriver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\exp\\srxpmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\exp\\srxpmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\mapgeneration\\perlindesertlevelgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mapgeneration\\perlindesertlevelgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\leveling\\levelupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\leveling\\levelupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\weapons\\srweaponmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapons\\srweaponmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\weapons\\sniperreticleui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapons\\sniperreticleui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\weapons\\grenadelauncher\\srgrenadeaimindicator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapons\\grenadelauncher\\srgrenadeaimindicator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\weapons\\srweaponbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapons\\srweaponbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\weapons\\srsniperrifle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapons\\srsniperrifle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\weapons\\grenadelauncher\\srgrenadelauncher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapons\\grenadelauncher\\srgrenadelauncher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\ghostlyhand\\urp\\ghostlyhandurp.shader||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\ghostlyhand\\urp\\ghostlyhandurp.shader||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\ui\\srwinui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\srwinui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\ui\\gameoverui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\gameoverui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\gamelogic\\objective\\srobjectivemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamelogic\\objective\\srobjectivemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\enemy\\srenemyhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\srenemyhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\player\\playerhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playerhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\mapgeneration\\srrunstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mapgeneration\\srrunstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\enemy\\srenemymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\srenemymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\gamelogic\\objective\\srobjectiveuibinder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamelogic\\objective\\srobjectiveuibinder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\gamelogic\\objective\\srobjectivekillcount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamelogic\\objective\\srobjectivekillcount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\gamelogic\\srrunstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamelogic\\srrunstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\gamelogic\\objective\\srobjectiveui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamelogic\\objective\\srobjectiveui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|m:\\unityprojects\\superun\\assets\\scripts\\gamelogic\\objective\\scriptableobjectws\\kill_40.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:assets\\scripts\\gamelogic\\objective\\scriptableobjectws\\kill_40.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\enemy\\srenemylite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\srenemylite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\gamelogic\\objective\\srobjectivesurvivetime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamelogic\\objective\\srobjectivesurvivetime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\gamelogic\\objective\\srobjective.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamelogic\\objective\\srobjective.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|M:\\UnityProjects\\SupeRun\\assets\\scripts\\gamelogic\\objective\\srgameevents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C18C900E-FB92-B81F-DB6B-2216ACB4CDE2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamelogic\\objective\\srgameevents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,28 +127,340 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "SRPlayerController.cs",
-              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerController.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerController.cs",
-              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerController.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAowBIAAAATAAAAAAAAAA==",
+              "Title": "SREnemyVisualDriver.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Enemy\\SREnemyVisualDriver.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\SREnemyVisualDriver.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Enemy\\SREnemyVisualDriver.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\SREnemyVisualDriver.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAkwDsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-02T13:32:50.074Z",
+              "WhenOpened": "2026-01-07T07:53:59.243Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "SRPlayerMotor.cs",
-              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerMotor.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerMotor.cs",
-              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerMotor.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerMovement\\SRPlayerMotor.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAAAUwGYAAAAVAAAAAAAAAA==",
+              "Title": "ISREnemyVisual.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Enemy\\ISREnemyVisual.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\ISREnemyVisual.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Enemy\\ISREnemyVisual.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\ISREnemyVisual.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-02T13:32:13.222Z",
+              "WhenOpened": "2026-01-07T07:51:07.313Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SRXpManager.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Exp\\SRXpManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Exp\\SRXpManager.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Exp\\SRXpManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Exp\\SRXpManager.cs",
+              "ViewState": "AgIAAHMAAAAAAAAAAAAWwIoAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T02:42:44.41Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PerlinDesertLevelGenerator.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\MapGeneration\\PerlinDesertLevelGenerator.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MapGeneration\\PerlinDesertLevelGenerator.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\MapGeneration\\PerlinDesertLevelGenerator.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MapGeneration\\PerlinDesertLevelGenerator.cs",
+              "ViewState": "AgIAAN4AAAAAAAAAAADwv+kAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T02:26:10.02Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LevelUpController.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Leveling\\LevelUpController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Leveling\\LevelUpController.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Leveling\\LevelUpController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Leveling\\LevelUpController.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAYwEkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T02:24:04.548Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "GhostlyHandURP.shader",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\GhostlyHand\\URP\\GhostlyHandURP.shader",
+              "RelativeDocumentMoniker": "Assets\\GhostlyHand\\URP\\GhostlyHandURP.shader",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\GhostlyHand\\URP\\GhostlyHandURP.shader",
+              "RelativeToolTip": "Assets\\GhostlyHand\\URP\\GhostlyHandURP.shader",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002777|",
+              "WhenOpened": "2026-01-07T01:06:28.362Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SRGrenadeLauncher.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Weapons\\GrenadeLauncher\\SRGrenadeLauncher.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapons\\GrenadeLauncher\\SRGrenadeLauncher.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Weapons\\GrenadeLauncher\\SRGrenadeLauncher.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapons\\GrenadeLauncher\\SRGrenadeLauncher.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T00:32:44.265Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SRWeaponBase.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Weapons\\SRWeaponBase.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapons\\SRWeaponBase.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Weapons\\SRWeaponBase.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapons\\SRWeaponBase.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAkwC8AAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T00:32:12.16Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SRGrenadeAimIndicator.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Weapons\\GrenadeLauncher\\SRGrenadeAimIndicator.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapons\\GrenadeLauncher\\SRGrenadeAimIndicator.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Weapons\\GrenadeLauncher\\SRGrenadeAimIndicator.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapons\\GrenadeLauncher\\SRGrenadeAimIndicator.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAwwC4AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T00:26:52.158Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SniperReticleUI.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Weapons\\SniperReticleUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapons\\SniperReticleUI.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Weapons\\SniperReticleUI.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapons\\SniperReticleUI.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAkwGUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T00:25:58.207Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SRSniperRifle.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Weapons\\SRSniperRifle.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapons\\SRSniperRifle.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Weapons\\SRSniperRifle.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapons\\SRSniperRifle.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAAACkAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T00:10:11.361Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SRWeaponManager.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Weapons\\SRWeaponManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapons\\SRWeaponManager.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Weapons\\SRWeaponManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapons\\SRWeaponManager.cs",
+              "ViewState": "AgIAAD8BAAAAAAAAAAAAwGQBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T23:45:27.932Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "GameOverUI.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\UI\\GameOverUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\GameOverUI.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\UI\\GameOverUI.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\GameOverUI.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowCEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T20:28:54.85Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "SRWinUI.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\UI\\SRWinUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\SRWinUI.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\UI\\SRWinUI.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\SRWinUI.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAjwC4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T20:18:27.639Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "SREnemyHealth.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Enemy\\SREnemyHealth.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\SREnemyHealth.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Enemy\\SREnemyHealth.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\SREnemyHealth.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAzwFkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T20:14:46.087Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PlayerHealth.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Player\\PlayerHealth.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerHealth.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Player\\PlayerHealth.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerHealth.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAkwIcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T20:01:59.498Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "SRRunState.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\MapGeneration\\SRRunState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MapGeneration\\SRRunState.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\MapGeneration\\SRRunState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MapGeneration\\SRRunState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T20:01:21.158Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "SREnemyManager.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Enemy\\SREnemyManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\SREnemyManager.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Enemy\\SREnemyManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\SREnemyManager.cs",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAkwIoAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T19:58:49.35Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "SRObjectiveUIBinder.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveUIBinder.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveUIBinder.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveUIBinder.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveUIBinder.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T19:25:33.128Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Kill_40.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\ScriptableObjectws\\Kill_40.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameLogic\\Objective\\ScriptableObjectws\\Kill_40.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\ScriptableObjectws\\Kill_40.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameLogic\\Objective\\ScriptableObjectws\\Kill_40.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T19:01:57.548Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "SRObjectiveUI.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveUI.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveUI.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveUI.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T18:49:10.42Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "SRObjectiveSurviveTime.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveSurviveTime.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveSurviveTime.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveSurviveTime.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveSurviveTime.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T18:49:09.959Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "SRObjectiveManager.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveManager.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveManager.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAA4wGMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T18:47:35.295Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "SRRunStats.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\SRRunStats.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameLogic\\SRRunStats.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\SRRunStats.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameLogic\\SRRunStats.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAswDAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T20:02:44.207Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "SRObjectiveKillCount.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveKillCount.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveKillCount.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveKillCount.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameLogic\\Objective\\SRObjectiveKillCount.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T18:49:09.255Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "SRObjective.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRObjective.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameLogic\\Objective\\SRObjective.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRObjective.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameLogic\\Objective\\SRObjective.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T18:49:08.785Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "SRGameEvents.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRGameEvents.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameLogic\\Objective\\SRGameEvents.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\GameLogic\\Objective\\SRGameEvents.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameLogic\\Objective\\SRGameEvents.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T18:49:08.331Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "SREnemyLite.cs",
+              "DocumentMoniker": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Enemy\\SREnemyLite.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\SREnemyLite.cs",
+              "ToolTip": "M:\\UnityProjects\\SupeRun\\Assets\\Scripts\\Enemy\\SREnemyLite.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\SREnemyLite.cs",
+              "ViewState": "AgIAAOwCAAAAAAAAAAApwAIDAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T13:54:52.713Z"
             }
           ]
         }

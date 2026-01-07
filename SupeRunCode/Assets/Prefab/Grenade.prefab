@@ -137,6 +137,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SRGrenade
   speed: 25
   upwardAngleDegrees: 15
+  gravity: -30
+  simStep: 0.03
+  maxSimSteps: 120
+  speedProfileAmount: 0.75
   baseFuseTime: 0.8
   baseExplosionRadius: 4
   baseDamage: 50
@@ -146,7 +150,10 @@ MonoBehaviour:
   baseMaxKnockbackForce: 5
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 72
+  explosionVfxPrefab: {fileID: 0}
+  explosionSfx: {fileID: 0}
+  explosionSfxVolume: 1
 --- !u!135 &24408143461071051
 SphereCollider:
   m_ObjectHideFlags: 0

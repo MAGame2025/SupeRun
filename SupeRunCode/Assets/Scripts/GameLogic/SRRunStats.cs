@@ -8,6 +8,9 @@ public class SRRunStats : MonoBehaviour
     [SerializeField] private int enemiesKilled;
     public int EnemiesKilled => enemiesKilled;
 
+    [SerializeField] private float elapsedTime;
+    public float ElapsedTime => elapsedTime;
+
     public event Action<int> OnEnemiesKilledChanged;
 
     private void Awake()
@@ -18,12 +21,20 @@ public class SRRunStats : MonoBehaviour
             return;
         }
         Instance = this;
-        // Optional: DontDestroyOnLoad(gameObject); // only if your runs span scenes
+    }
+
+    private void Update()
+    {
+        // If you add SRRunState later, you can gate time here:
+        // if (SRRunState.IsLevelComplete) return;
+
+        elapsedTime += Time.deltaTime;
     }
 
     public void ResetRun()
     {
         enemiesKilled = 0;
+        elapsedTime = 0f;
         OnEnemiesKilledChanged?.Invoke(enemiesKilled);
     }
 

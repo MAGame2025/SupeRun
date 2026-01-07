@@ -5,6 +5,7 @@ public class SRPlayerMotor : MonoBehaviour
 {
     [Header("Debug (read-only)")]
     [SerializeField] private bool ccGrounded;
+    [SerializeField] private bool stableGroundedDebug;
     [SerializeField] private bool groundContact;
     [SerializeField] private float groundHitDistance;
     [SerializeField] private float groundAngle;
@@ -28,7 +29,8 @@ public class SRPlayerMotor : MonoBehaviour
     public float PlanarSpeed => planarSpeed;
     [Header("Acceleration")]
     [SerializeField] private float walkAccel = 55f;
-    [SerializeField] private float runAccel = 80f;
+    [SerializeField] private float runAccelMultiplier = 1.4f;
+    [SerializeField] private float slideAccelMultiplier = 0.15f;    // locked by you
     [SerializeField] private float airAccel = 28f;
 
     [Header("Soft Speed Caps")]
@@ -47,19 +49,16 @@ public class SRPlayerMotor : MonoBehaviour
 
     [Header("Slide / Crouch")]
     [SerializeField] private float crouchHeightMultiplier = 0.5f;   // locked by you
-    [SerializeField] private float crouchTransitionSpeed = 25f;     // how fast we lerp height/center
-
-    [SerializeField] private float slideAccelMultiplier = 0.15f;    // locked by you
     [SerializeField] private float slideFriction = 3.5f;
     [SerializeField] private float slideSpeedCap = 22f;             // high cap; tune
     [SerializeField] private float slideCapDamping = 12f;           // soft cap strength
 
-    [SerializeField] private float slideSlopeGravity = 18f;         // MED feel; you’ll tune
+    [Header("Slide Slope Gravity Split")]
+    [SerializeField] private float slideSlopeGravityDownhill = 18f; // keep your current feel
+    [SerializeField] private float slideSlopeGravityUphill = 10f;   // weaker (tune)
+
 
     [SerializeField] private float headroomCheckExtra = 0.05f;      // small padding
-
-    [SerializeField, Range(0f, 1f)] private float slideSteer = 0.15f;      // how much input can steer slide
-    [SerializeField, Range(0f, 1f)] private float slideDownhillBias = 0.65f; // how much we bias velocity toward downhill
 
     [Header("Slide Entry Seed")]
     [SerializeField] private float slideEntrySeedSpeed = 0.5f;     // your choice
@@ -112,6 +111,8 @@ public class SRPlayerMotor : MonoBehaviour
     [Tooltip("Toggleable stick-to-ground bias (for testing). This is NOT the ground check.")]
     [SerializeField] private bool stickToGroundEnabled = true;
     [SerializeField] private float stickToGroundVelocity = -2.0f;
+    [SerializeField] private float groundedSnapExtra = 0.05f;
+
 
     [Header("Jump")]
     [SerializeField] private float jumpImpulse = 10f;
@@ -139,9 +140,36 @@ public class SRPlayerMotor : MonoBehaviour
     [SerializeField] private float crouchVisualYOffset = -0.35f;
     [SerializeField] private float visualCrouchLerpSpeed = 18f;
 
+    [Header("Grounded Stabilization")]
+    [SerializeField] private float groundedSnapDistance = 0.08f; // how close probe must be
+    [SerializeField] private float ungroundDelay = 0.08f;        // seconds of grace before ungrounding
+
+    [Header("Slide Landing Boost")]
+    [SerializeField] private bool enableSlideLandingBoost = true;
+    [SerializeField] private float slideLandingMinSlopeAngle = 10f;
+    [SerializeField] private float slideLandingMinPlanarSpeed = 6f;
+    [SerializeField] private float slideLandingMinFallSpeed = 1.5f; // needs to be falling at least this fast (abs)
+    [SerializeField] private float slideLandingBoostCooldown = 0.15f;
+
+    [SerializeField, Range(0f, 1f)] private float slideLandingAlignMin = 0.55f; // minimum dot to get ANY reward
+    [SerializeField, Range(0f, 1f)] private float slideLandingAlignPerfect = 0.95f; // dot considered "perfect"
+
+    [SerializeField] private float slideLandingBoostMin = 0.5f;  // reward at min alignment
+    [SerializeField] private float slideLandingBoostMax = 2.5f;  // reward at perfect alignment
+    [SerializeField]
+    private AnimationCurve slideLandingRewardCurve =
+        AnimationCurve.EaseInOut(0f, 0f, 1f, 1f); // shape the reward (optional but nice)
+
+    private float slideLandingBoostCooldownTimer;
+
+    private float ungroundTimer;
+    private bool stableGrounded;
+    public bool StableGrounded => stableGrounded;
 
     private Vector3 visualDefaultLocalPos;
     private Vector3 visualDefaultLocalScale;
+
+    private bool slideHeldThisFrame;
 
 
     public bool VisualGroundContact => visualGroundContact;
@@ -189,6 +217,11 @@ public class SRPlayerMotor : MonoBehaviour
     {
         if (dt <= 0f)
             return;
+        slideHeldThisFrame = slideHeld;
+
+        if (slideLandingBoostCooldownTimer > 0f)
+            slideLandingBoostCooldownTimer -= dt;
+
 
         wallHitThisFrame = false;
         wallNormalThisFrame = Vector3.up;
@@ -197,7 +230,33 @@ public class SRPlayerMotor : MonoBehaviour
         // 1) Probe ground normal
         ProbeGround();
 
-        bool groundedNow = cc.isGrounded;
+        bool ccG = cc.isGrounded;
+
+        // Probe says "we're basically on ground" if hit is close enough
+        bool probeG = groundContact && groundHitDistance <= (groundedSnapDistance + groundedSnapExtra);
+
+        // Only allow probe to “fake” grounded if we’re not moving strongly upward
+        bool canSnap = verticalVelocity <= 0.5f;
+
+        // Raw candidate grounded
+        bool candidate = ccG || (probeG && canSnap);
+
+        // Hysteresis / grace time: don’t drop grounded instantly
+        if (candidate)
+        {
+            stableGrounded = true;
+            ungroundTimer = ungroundDelay;
+        }
+        else
+        {
+            ungroundTimer -= dt;
+            if (ungroundTimer <= 0f)
+                stableGrounded = false;
+        }
+
+
+        bool groundedNow = stableGrounded;
+
 
         // --- Crouch/Slide state rules ---
         // If slide is held: crouch always (ground or air)
@@ -210,15 +269,15 @@ public class SRPlayerMotor : MonoBehaviour
             // If not held:
             // - in air: stand immediately (your choice A)
             // - on ground: attempt stand, but if blocked by ceiling, remain crouched
-            if (!groundedNow)
                 SetCrouch(false);
-            else
-                SetCrouch(false); // SetCrouch handles headroom (won't stand if blocked)
+
         }
 
         // --- Slide entry seed: standing on slope + press slide + no input -> start moving downhill ---
         bool enteringSlide = (!prevSlideHeld && slideHeld);
         float slopeAngleNow = Vector3.Angle(groundNormal, Vector3.up);
+
+        ApplySlideLandingBoostIfQualified(groundedNow, slopeAngleNow, dt);
 
         if (enteringSlide)
         {
@@ -265,7 +324,7 @@ public class SRPlayerMotor : MonoBehaviour
 
 
         // 4) Walk slope forces (uphill slow + tiny downhill assist)
-        ApplyWalkSlopeForces(desiredDir, isCrouched ? onSlideableSlope : onWalkableSlope, dt);
+        ApplySlopeForces(desiredDir, isCrouched ? onSlideableSlope : onWalkableSlope, dt);
 
         if (isCrouched && onSlideableSlope)
         {
@@ -309,6 +368,7 @@ public class SRPlayerMotor : MonoBehaviour
             verticalVelocity <= stickToGroundVelocity;
 
         prevSlideHeld = slideHeld;
+        stableGroundedDebug = stableGrounded;
 
     }
     private void ProbeGround()
@@ -379,16 +439,36 @@ public class SRPlayerMotor : MonoBehaviour
         if (desiredDir.sqrMagnitude <= 0.0001f)
             return;
 
-        float accel = grounded
-            ? (runHeld ? runAccel : walkAccel)
-            : airAccel;
+        float accel;
 
-        // Sliding reduces how much "engine force" the player has.
-        if (grounded && isCrouched)
-            accel *= slideAccelMultiplier;
+        if (grounded)
+        {
+            if (isCrouched)
+            {
+                // Sliding input force is ALWAYS based on walk accel
+                accel = walkAccel * slideAccelMultiplier;
+            }
+            else
+            {
+                // Run = scaled walk
+                accel = walkAccel * (runHeld ? runAccelMultiplier : 1f);
+            }
+        }
+        else
+        {
+            accel = airAccel;
+        }
 
         planarVelocity += desiredDir * (accel * dt);
+        Debug.DrawRay(
+            transform.position + Vector3.up,
+            desiredDir * accel * 0.02f,
+            isCrouched ? Color.cyan : Color.white,
+            0f
+        );
+
     }
+
 
 
 
@@ -408,18 +488,18 @@ public class SRPlayerMotor : MonoBehaviour
     }
 
 
-    private void ApplyWalkSlopeForces(Vector3 desiredDir, bool grounded, float dt)
+    private void ApplySlopeForces(Vector3 desiredDir, bool grounded, float dt)
     {
         if (!grounded)
             return;
 
-        Vector3 downhill = Vector3.ProjectOnPlane(Vector3.down, groundNormal);
-        if (downhill.sqrMagnitude <= 0.0001f)
+        // ---- Walking slope feel (uses current groundNormal) ----
+        Vector3 walkDownhill = Vector3.ProjectOnPlane(Vector3.down, groundNormal);
+        if (walkDownhill.sqrMagnitude <= 0.0001f)
             return;
 
-        downhill.Normalize();
+        walkDownhill.Normalize();
 
-        // Use input direction if present; otherwise use current velocity direction
         Vector3 moveDir = desiredDir.sqrMagnitude > 0.0001f
             ? desiredDir
             : (planarVelocity.sqrMagnitude > 0.0001f ? planarVelocity.normalized : Vector3.zero);
@@ -427,47 +507,62 @@ public class SRPlayerMotor : MonoBehaviour
         if (moveDir == Vector3.zero)
             return;
 
-        float alongDownhill = Vector3.Dot(moveDir, downhill);
+        float walkAlongDownhill = Vector3.Dot(moveDir, walkDownhill);
 
-        // --- Base walking slope feel (NOT sliding) ---
         if (!isCrouched)
         {
-            if (alongDownhill < 0f)
+            if (walkAlongDownhill < 0f)
             {
-                float strength = (-alongDownhill) * uphillSlowStrength;
-                planarVelocity += downhill * (strength * dt);
+                float strength = (-walkAlongDownhill) * uphillSlowStrength;
+                planarVelocity += walkDownhill * (strength * dt);
             }
             else
             {
-                float strength = alongDownhill * downhillAssistStrength;
-                planarVelocity += downhill * (strength * dt);
+                float strength = walkAlongDownhill * downhillAssistStrength;
+                planarVelocity += walkDownhill * (strength * dt);
             }
-
             return;
         }
 
+        // ---- Sliding slope gravity (uses smoothed slide normal) ----
         Vector3 n = slideGroundNormalSmoothed;
         float angle = Vector3.Angle(n, Vector3.up);
 
         if (angle < minDownhillAngle)
             return;
 
+        Vector3 slideDownhill = Vector3.ProjectOnPlane(Vector3.down, n);
+        if (slideDownhill.sqrMagnitude <= 0.0001f)
+            return;
 
-        // --- Sliding slope gravity (strong) ---
-        // Always accelerates downhill. If you're moving uphill, this fights you hard.
-        float slopeStrength = slideSlopeGravity;
+        slideDownhill.Normalize();
 
-        // Optional: scale by steepness so shallow slopes do less
-        // (0 on flat, ~1 as it gets steep)
-        //If you don’t want steepness scaling, delete the steepness01 line and use: planarVelocity += downhill * (slopeStrength * dt);
         float steepness01 = Mathf.Clamp01(angle / maxSlideSlopeAngle);
 
-        // Give a minimum pull so even mild slopes feel like they matter.
-        steepness01 = Mathf.Max(steepness01, 0.15f);
+        float minPull = 0.15f;
 
-        planarVelocity += downhill * (slopeStrength * steepness01 * dt);
+        Vector3 driveDir =
+            planarVelocity.sqrMagnitude > 0.0001f ? planarVelocity.normalized :
+            (desiredDir.sqrMagnitude > 0.0001f ? desiredDir.normalized : Vector3.zero);
 
+        float slideAlongDownhill = (driveDir == Vector3.zero) ? 0f : Vector3.Dot(driveDir, slideDownhill);
+
+        float slopeStrength = (slideAlongDownhill < 0f) ? slideSlopeGravityUphill : slideSlopeGravityDownhill;
+
+        if (slideAlongDownhill < 0f)
+        {
+            float uphill01 = Mathf.Clamp01(-slideAlongDownhill);
+            float uphillScale = Mathf.Lerp(1f, 0.5f, uphill01);
+            slopeStrength *= uphillScale;
+
+            minPull = 0.05f;
+        }
+
+        steepness01 = Mathf.Max(steepness01, minPull);
+
+        planarVelocity += slideDownhill * (slopeStrength * steepness01 * dt);
     }
+
 
 
     private void ApplyGravity(bool grounded, float dt)
@@ -555,13 +650,17 @@ public class SRPlayerMotor : MonoBehaviour
         // After movement, if the controller reports grounded and we're moving downward,
         // we optionally apply a small downward bias to maintain ground contact.
         // This prevents tiny hops on slopes and uneven surfaces.
-        if (cc.isGrounded && verticalVelocity < 0f && stickToGroundEnabled)
+        if (stableGrounded && verticalVelocity < 0f && stickToGroundEnabled)
             verticalVelocity = stickToGroundVelocity;
+
     }
 
     public bool TryJump(bool slideHeld)
     {
-        bool groundedNow = cc.isGrounded;
+        // if stableGrounded hasn't been updated yet this frame, fall back
+        bool groundedNow = stableGrounded || cc.isGrounded;
+
+
 
         // Allowed if grounded OR we have air jumps left
         if (!groundedNow && jumpsRemaining <= 0)
@@ -707,6 +806,7 @@ public class SRPlayerMotor : MonoBehaviour
         float wV = Mathf.Clamp01(slideWeightVelocity);
         float wD = Mathf.Clamp01(slideWeightDownhill);
         float wI = Mathf.Clamp01(slideWeightInput);
+        wI *= Mathf.Clamp01(slideAccelMultiplier); // 0 -> no steering, 0.1 -> 10% steering, etc.
 
         float sum = wV + wD + wI;
         if (sum <= 0.0001f)
@@ -793,5 +893,71 @@ public class SRPlayerMotor : MonoBehaviour
         }
     }
 
+    private void ApplySlideLandingBoostIfQualified(bool groundedNow, float slopeAngleNow, float dt)
+    {
+        if (!enableSlideLandingBoost)
+            return;
+
+        // Only when we actually "land" this frame.
+        // NOTE: wasGrounded is updated later in Tick, so here it still represents LAST frame.
+        bool landedThisFrame = groundedNow && !wasGrounded;
+        if (!landedThisFrame)
+            return;
+
+        // Only reward if we're crouched (sliding state)
+        if (!isCrouched || !slideHeldThisFrame)
+            return;
+
+
+        // Cooldown prevents multiple triggers due to contact jitter
+        if (slideLandingBoostCooldownTimer > 0f)
+            return;
+
+        // Must be a proper slope landing
+        if (slopeAngleNow < slideLandingMinSlopeAngle || slopeAngleNow > maxSlideSlopeAngle)
+            return;
+
+        // Need enough incoming planar speed
+        float speed = planarVelocity.magnitude;
+        if (speed < slideLandingMinPlanarSpeed)
+            return;
+
+        // Must be falling down into the slope (verticalVelocity is negative when falling)
+        if (-verticalVelocity < slideLandingMinFallSpeed)
+            return;
+
+        // Compute downhill on this slope
+        Vector3 downhill = Vector3.ProjectOnPlane(Vector3.down, groundNormal);
+        if (downhill.sqrMagnitude <= 0.0001f)
+            return;
+        downhill.Normalize();
+
+        Vector3 planarDir = planarVelocity.sqrMagnitude > 0.0001f ? planarVelocity.normalized : Vector3.zero;
+        if (planarDir == Vector3.zero)
+            return;
+
+        // Must be aligned with downhill (skill check)
+        float align = Vector3.Dot(planarDir, downhill); // 1=downhill, 0=sideways, -1=uphill
+
+        // No reward below the minimum alignment
+        if (align < slideLandingAlignMin)
+            return;
+
+        // Map align -> 0..1 where 0 = min, 1 = perfect
+        float t = Mathf.InverseLerp(slideLandingAlignMin, slideLandingAlignPerfect, align);
+        t = Mathf.Clamp01(t);
+
+        // Shape the reward curve (more "skill pop" near perfect)
+        float shaped = slideLandingRewardCurve != null ? slideLandingRewardCurve.Evaluate(t) : t;
+
+        // Boost amount scales between min and max
+        float boost = Mathf.Lerp(slideLandingBoostMin, slideLandingBoostMax, shaped);
+
+        // Reward: add speed in your current travel direction
+        planarVelocity += planarDir * boost;
+
+
+        slideLandingBoostCooldownTimer = slideLandingBoostCooldown;
+    }
 
 }

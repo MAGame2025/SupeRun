@@ -92,6 +92,32 @@ public class SRAuthenticationManager : MonoBehaviour
             return (false, e.Message);
         }
     }
+    public async Task<(bool success, string message)> LoginAsGuest()
+    {
+        if (!servicesInitialized)
+            return (false, "Services not initialized yet");
+
+        if (AuthenticationService.Instance.IsSignedIn)
+            return (true, "Already signed in");
+
+        try
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log($"Guest login success. PlayerId: {AuthenticationService.Instance.PlayerId}");
+            OnSignedIn?.Invoke();
+            return (true, "Playing as Guest");
+        }
+        catch (AuthenticationException e)
+        {
+            Debug.LogError(e);
+            return (false, e.Message);
+        }
+        catch (RequestFailedException e)
+        {
+            Debug.LogError(e);
+            return (false, e.Message);
+        }
+    }
 
     public void SignOut()
     {

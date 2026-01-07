@@ -8,6 +8,7 @@ public class SRXpManager : MonoBehaviour
     public static SRXpManager Instance { get; private set; }
 
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private Transform orbContainer;
 
     [Header("XP Progression")]
     [SerializeField] private int startingLevel = 1;
@@ -51,7 +52,7 @@ public class SRXpManager : MonoBehaviour
         }
         Instance = this;
         Debug.Log("SRXpManager: Awake – instance set.", this);
-
+        ResolveOrbContainer();
         if (levelUpController == null)
             levelUpController = GetComponent<LevelUpController>();
     }
@@ -90,7 +91,7 @@ public class SRXpManager : MonoBehaviour
         {
             for (int i = 0; i < initialOrbPoolSize; i++)
             {
-                XPOrb orb = Instantiate(xpOrbPrefab, transform);
+                XPOrb orb = Instantiate(xpOrbPrefab, orbContainer);
                 orb.gameObject.SetActive(false);
                 // pass null player, we'll always ask manager at runtime
                 orb.Initialize(this, null);
@@ -130,14 +131,12 @@ public class SRXpManager : MonoBehaviour
 
         CurrentXp += amount;
 
-        bool leveledUp = false;
 
         while (CurrentXp >= XpToNextLevel && (maxLevel == 0 || CurrentLevel < maxLevel))
         {
             CurrentXp -= XpToNextLevel;
             CurrentLevel++;
             XpToNextLevel = CalculateXpToNextLevel(CurrentLevel);
-            leveledUp = true;
 
             Debug.Log($"SRXpManager.AddXp: LEVEL UP → now level {CurrentLevel}, XP {CurrentXp}/{XpToNextLevel}");
 
@@ -193,6 +192,23 @@ public class SRXpManager : MonoBehaviour
         activeOrbs.Remove(orb);
         orbPool.Enqueue(orb);
     }
+    private void ResolveOrbContainer()
+    {
+        if (orbContainer != null)
+            return;
+
+        // Try find existing container in scene
+        GameObject go = GameObject.Find("XPOrbsContainer");
+        if (go != null)
+        {
+            orbContainer = go.transform;
+            return;
+        }
+
+        // Create it if it doesn't exist
+        go = new GameObject("XPOrbsContainer");
+        orbContainer = go.transform;
+    }
 
     private XPOrb GetOrbFromPool()
     {
@@ -203,9 +219,14 @@ public class SRXpManager : MonoBehaviour
         }
         else
         {
-            orb = Instantiate(xpOrbPrefab, transform);
+            orb = Instantiate(xpOrbPrefab, orbContainer);
             orb.Initialize(this, playerTransform);
         }
+
+        // SAFETY: ensure reused orbs never stay parented to the player hierarchy
+        orb.transform.SetParent(orbContainer, true); // true = keep world position
+
         return orb;
     }
+
 }

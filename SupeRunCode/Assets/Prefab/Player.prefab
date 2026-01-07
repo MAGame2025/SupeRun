@@ -660,10 +660,10 @@ CharacterController:
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.55
-  m_SlopeLimit: 60
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.05
-  m_MinMoveDistance: 0.001
+  m_SlopeLimit: 80
+  m_StepOffset: 0.2
+  m_SkinWidth: 0.1
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &8803146272684797320
 MonoBehaviour:
@@ -833,7 +833,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2965674475673373541}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ffc7654afd0707f4da83c26b2360f2fc, type: 3}
   m_Name: 
@@ -887,7 +887,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2965674475673373541}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4f52018297214945b2e117de4a6108c, type: 3}
   m_Name: 
@@ -910,43 +910,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83c3063e560f33844baf2536315371f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SRPlayerMotor
-  ccGrounded: 0
-  groundContact: 0
-  groundHitDistance: 0
-  groundAngle: 0
-  stickActive: 0
-  groundNormal: {x: 0, y: 1, z: 0}
-  planarVelocity: {x: 0, y: 0, z: 0}
-  verticalVelocity: 0
-  planarSpeed: 0
+  ccGrounded: 1
+  stableGroundedDebug: 0
+  groundContact: 1
+  groundHitDistance: 0.643525
+  groundAngle: 62.616184
+  stickActive: 1
+  groundNormal: {x: 0.5529255, y: 0.459949, z: 0.6947808}
+  planarVelocity: {x: 3.18765e-35, y: -3.9057832e-35, z: 4.887689e-37}
+  verticalVelocity: -2
+  planarSpeed: 5.0416907e-35
   walkAccel: 55
-  runAccel: 110
-  airAccel: 28
-  walkSpeedCap: 8.5
+  runAccelMultiplier: 1.4
+  slideAccelMultiplier: 0.01
+  airAccel: 15
+  walkSpeedCap: 9
   runSpeedCap: 14
   airSpeedCap: 25
   capDamping: 10
   groundFriction: 9
   airDrag: 0.8
-  uphillSlowStrength: 4
-  downhillAssistStrength: 2
+  uphillSlowStrength: 5
+  downhillAssistStrength: 0
   crouchHeightMultiplier: 0.5
-  crouchTransitionSpeed: 25
-  slideAccelMultiplier: 0.12
   slideFriction: 1
-  slideSpeedCap: 22
-  slideCapDamping: 10
-  slideSlopeGravity: 24
+  slideSpeedCap: 40
+  slideCapDamping: 5
+  slideSlopeGravityDownhill: 40
+  slideSlopeGravityUphill: 20
   headroomCheckExtra: 0.05
-  slideSteer: 0.05
-  slideDownhillBias: 0.6
   slideEntrySeedSpeed: 0.5
   slideEntrySpeedThreshold: 0.25
   slideEntryMinSlopeAngle: 6
   wallScrapeDamping: 0.88
-  slideWeightVelocity: 0.6
+  slideWeightVelocity: 0.8
   slideWeightDownhill: 0
-  slideWeightInput: 0.4
+  slideWeightInput: 0.2
   minDownhillAngle: 6
   useGroundDownhillInSlide: 1
   slideNormalLerpSpeed: 20
@@ -958,25 +957,61 @@ MonoBehaviour:
     m_Bits: 584
   probeDistance: 0.45
   probeRadius: 0.3
-  maxWalkSlopeAngle: 60
-  maxSlideSlopeAngle: 80
+  maxWalkSlopeAngle: 80
+  maxSlideSlopeAngle: 90
   gravity: -30
-  terminalVelocity: -60
+  terminalVelocity: -40
   stickToGroundEnabled: 1
-  stickToGroundVelocity: -10
+  stickToGroundVelocity: -2
+  groundedSnapExtra: 0.05
   jumpImpulse: 10
   extraJumps: 1
   fastFallThreshold: -12
   fastFallClamp: -2
   visualProbeDistance: 2.5
   visualProbeRadius: 0.35
-  visualGroundContact: 0
-  visualGroundDistance: Infinity
-  visualGroundNormal: {x: 0, y: 1, z: 0}
-  visualModelRoot: {fileID: 0}
+  visualGroundContact: 1
+  visualGroundDistance: 0.5348293
+  visualGroundNormal: {x: 0.5529407, y: 0.45995924, z: 0.6947618}
+  visualModelRoot: {fileID: 6284878947808890582}
   crouchVisualScaleY: 0.7
   crouchVisualYOffset: -0.35
   visualCrouchLerpSpeed: 25
+  groundedSnapDistance: 0.08
+  ungroundDelay: 0.08
+  enableSlideLandingBoost: 1
+  slideLandingMinSlopeAngle: 10
+  slideLandingMinPlanarSpeed: 6
+  slideLandingMinFallSpeed: 1.5
+  slideLandingBoostCooldown: 0.15
+  slideLandingAlignMin: 0.55
+  slideLandingAlignPerfect: 0.95
+  slideLandingBoostMin: 0.5
+  slideLandingBoostMax: 2.5
+  slideLandingRewardCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &-2858934394590100470
 MonoBehaviour:
   m_ObjectHideFlags: 0

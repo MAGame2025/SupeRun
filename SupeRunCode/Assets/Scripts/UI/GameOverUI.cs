@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverPanel;
-
+    [Header("Scenes")]
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
     private bool isShown = false;
 
     private void Awake()
@@ -24,7 +25,11 @@ public class GameOverUI : MonoBehaviour
         // Pause the game
         Time.timeScale = 0f;
     }
-
+    public void OnQuitToMenuClicked()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(mainMenuSceneName);
+    }
     // Called by the Restart button OnClick
     public void OnRestartButton()
     {

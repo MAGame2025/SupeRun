@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7267483513533938227}
   - component: {fileID: 4391118386505035501}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,6 +49,7 @@ MonoBehaviour:
   fullLogicRadius: 30
   farLogicRadius: 80
   farUpdateIntervalFrames: 10
+  farSpeedMultiplier: 0.7
   despawnRadius: 120
   disableComponentsWhenNotFull: 1
   playerFindIntervalFrames: 30
@@ -61,9 +62,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7104749307704842681}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyHandling
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7883387583185983162}
   - component: {fileID: 937518172900623483}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyDirector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,20 +135,24 @@ MonoBehaviour:
     prewarmCount: 400
   - prefab: {fileID: 5615878369769137053, guid: 50f2aa716789e904c9d24c269b68b4b3, type: 3}
     prewarmCount: 400
-  spawnRadius: 25
+  spawnRadiusMin: 25
+  spawnRadiusMax: 40
   spawnRaycastHeight: 20
   groundMask:
     serializedVersion: 2
     m_Bits: 200
-  initialEnemiesPerWave: 10
-  enemiesPerWaveIncrease: 3
-  initialWaveInterval: 4
-  minWaveInterval: 0.75
+  spawnHeightOffset: 0.6
+  initialEnemiesPerWave: 3
+  enemiesPerWaveIncrease: 1
+  initialWaveInterval: 10
+  minWaveInterval: 5
   waveIntervalMultiplier: 0.95
   eliteChance: 0.1
   baseMaxEnemies: 200
   maxEnemiesIncreasePerWave: 40
   hardMaxEnemies: 2000
-  spawnPerFrame: 10
+  spawnWindowFraction: 0.5
+  minSecondsBetweenSpawns: 0.08
+  maxSpawnPerTick: 5
   randomWaves: 1
   waveOverrides: []

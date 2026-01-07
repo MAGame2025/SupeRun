@@ -15,6 +15,10 @@ public class SRWeaponManager : MonoBehaviour
     [Tooltip("Weapons the player starts with. These will be instantiated at runtime.")]
     [SerializeField] private SRWeaponBase[] startingWeapons;
 
+    [SerializeField] private Vector2 aimViewportPoint = new Vector2(0.5f, 0.62f);
+    [SerializeField] private float aimMaxDistance = 300f;
+    [SerializeField] private LayerMask aimMask = ~0;
+
     [Header("Visual Attach Point")]
     [SerializeField] private Transform weaponAnchor;
 
@@ -25,10 +29,20 @@ public class SRWeaponManager : MonoBehaviour
 
     // Currently owned weapon instances (up to maxWeaponSlots).
     private readonly List<SRWeaponBase> equippedWeapons = new List<SRWeaponBase>();
+    public static SRWeaponManager Instance { get; private set; }
 
     // Currently equipped/active weapon.
     private SRWeaponBase currentWeapon;
     private int currentIndex;
+    public Camera PlayerCamera => playerCamera;
+    public Vector2 AimViewportPoint => aimViewportPoint;
+    public float AimMaxDistance => aimMaxDistance;
+    public LayerMask AimMask => aimMask;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -89,16 +103,13 @@ public class SRWeaponManager : MonoBehaviour
 
         if (fireInput)
         {
-            Vector3 origin = fireOrigin != null
-                ? fireOrigin.position
-                : (playerCamera != null ? playerCamera.transform.position : transform.position);
-
-            Vector3 direction = playerCamera != null
-                ? playerCamera.transform.forward
-                : transform.forward;
-
+            Vector3 origin = GetFireOrigin();
+            Vector3 aimPoint;
+            Vector3 direction = GetAimDirection(origin, out aimPoint);
             currentWeapon.TryFire(origin, direction);
+
         }
+
 
         // NOTE:
         // Weapon switching input is NOT handled here to avoid mixing systems.
@@ -247,6 +258,108 @@ public class SRWeaponManager : MonoBehaviour
         }
 
         return list;
+    }
+
+    public Vector3 GetAimDirection(Vector3 fireOrigin, out Vector3 aimPoint)
+    {
+        aimPoint = fireOrigin + playerCamera.transform.forward;
+
+        if (playerCamera == null)
+            return transform.forward;
+
+        Vector2 vp = GetCurrentAimViewportPoint();
+        float maxDist = GetAimMaxDistance();
+
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(vp.x, vp.y, 0f));
+
+        if (Physics.Raycast(ray, out RaycastHit hit, maxDist, aimMask, QueryTriggerInteraction.Ignore))
+            aimPoint = hit.point;
+        else
+            aimPoint = ray.origin + ray.direction * maxDist;
+
+        Vector3 dir = (aimPoint - fireOrigin);
+        if (dir.sqrMagnitude < 0.0001f)
+            return ray.direction;
+
+        return dir.normalized;
+    }
+
+
+    // If current weapon is sniper, use its range as the aim distance.
+    private float GetAimMaxDistance()
+    {
+        if (currentWeapon != null)
+            return currentWeapon.AimMaxDistance;
+
+        return aimMaxDistance;
+    }
+
+    public bool TryGetAimPoint(out Vector3 aimPoint)
+    {
+        aimPoint = Vector3.zero;
+
+        if (playerCamera == null)
+            return false;
+
+        Vector2 vp = GetCurrentAimViewportPoint();
+        float maxDist = GetAimMaxDistance();
+
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(vp.x, vp.y, 0f));
+
+        if (Physics.Raycast(ray, out RaycastHit hit, maxDist, aimMask, QueryTriggerInteraction.Ignore))
+        {
+            aimPoint = hit.point;
+            return true;
+        }
+
+        aimPoint = ray.origin + ray.direction * maxDist;
+        return true;
+    }
+
+    public Vector3 GetFireOrigin()
+    {
+        if (currentWeapon != null)
+        {
+            Transform weaponMuzzle = currentWeapon.MuzzleTransform;
+            if (weaponMuzzle != null)
+                return weaponMuzzle.position;
+        }
+
+        if (fireOrigin != null) return fireOrigin.position;
+        if (playerCamera != null) return playerCamera.transform.position;
+        return transform.position;
+    }
+
+
+
+    public Vector3 GetLiveAimDirectionFromFireOrigin()
+    {
+        Vector3 origin = GetFireOrigin();
+
+        Vector3 aimPoint;
+        if (!TryGetAimPoint(out aimPoint))
+            return (playerCamera != null ? playerCamera.transform.forward : transform.forward);
+
+        Vector3 dir = (aimPoint - origin);
+        if (dir.sqrMagnitude < 0.0001f)
+            return (playerCamera != null ? playerCamera.transform.forward : transform.forward);
+
+        return dir.normalized;
+    }
+
+    private Vector2 GetCurrentAimViewportPoint()
+    {
+        if (currentWeapon != null && currentWeapon.UseCustomAimViewportPoint)
+            return currentWeapon.AimViewportPoint;
+
+        return aimViewportPoint;
+    }
+
+
+
+    public Vector2 GetActiveAimViewportPoint()
+    {
+        return GetCurrentAimViewportPoint();
     }
 
     // --------------------------------------------------------------------

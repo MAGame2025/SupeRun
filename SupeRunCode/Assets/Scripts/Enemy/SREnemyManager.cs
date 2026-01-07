@@ -8,6 +8,8 @@ public class SREnemyManager : MonoBehaviour
 
     [SerializeField] private Transform player;
 
+    private bool simulationEnabled = true;
+
     [Header("Full Logic (Closest First)")]
     [Tooltip("Max enemies that can run Full logic per frame. These will be the CLOSEST enemies within Full radius.")]
     [SerializeField] private int maxFullLogicEnemies = 300;
@@ -53,7 +55,6 @@ public class SREnemyManager : MonoBehaviour
     private int[] candidateIndices = new int[256];
     private float[] candidateDistSq = new float[256];
 
-    // ✅ API your existing code expects
     public Transform Player => player;
     public int ActiveEnemyCount => enemies.Count;
 
@@ -128,6 +129,10 @@ public class SREnemyManager : MonoBehaviour
         }
     }
 
+    public void SetSimulationEnabled(bool enabled)
+    {
+        simulationEnabled = enabled;
+    }
     private void Update()
     {
         // Auto-find player if not assigned (throttled)
@@ -140,6 +145,9 @@ public class SREnemyManager : MonoBehaviour
                     player = pObj.transform;
             }
         }
+
+        if (!simulationEnabled)
+            return;
 
         if (player == null)
             return;

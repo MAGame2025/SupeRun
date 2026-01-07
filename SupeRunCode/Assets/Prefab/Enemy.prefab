@@ -145,7 +145,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 1
@@ -163,19 +163,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 860ef01cfeeacee48bc10b9f532fc003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SREnemyLite
-  moveSpeed: 3
+  moveSpeed: 2
   turnSpeed: 10
   gravity: -25
   groundedGravity: -2
   climbCheckDistance: 0.6
   climbUpSpeed: 5
-  climbGravityScale: 0.111
+  climbGravityScale: 0
   climbObstacleMask:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 584
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 584
   maxClimbHeight: 8
   enableSlopeFollow: 1
   slopeProbeDistance: 1.8

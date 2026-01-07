@@ -9,7 +9,12 @@ public class XPUIController : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI xpText;
-    [SerializeField] private Slider xpSlider;
+
+    [Header("XP Bar (Frame + Fill)")]
+    [SerializeField] private Image fillImage; // <-- the Fill Image (Type = Filled)
+
+    [Header("Color")]
+    [SerializeField] private Gradient fillColorOverProgress;
 
     private void Start()
     {
@@ -19,7 +24,6 @@ public class XPUIController : MonoBehaviour
         if (xpManager != null)
         {
             xpManager.OnXpChanged += HandleXpChanged;
-            // Force initial update
             HandleXpChanged(xpManager.CurrentLevel, xpManager.CurrentXp, xpManager.XpToNextLevel);
         }
     }
@@ -38,10 +42,16 @@ public class XPUIController : MonoBehaviour
         if (xpText != null)
             xpText.text = $"XP: {currentXp} / {xpToNext}";
 
-        if (xpSlider != null)
+        float t = (xpToNext <= 0) ? 0f : (float)currentXp / xpToNext;
+        t = Mathf.Clamp01(t);
+
+        if (fillImage != null)
         {
-            xpSlider.maxValue = xpToNext;
-            xpSlider.value = currentXp;
+            // IMPORTANT: in Inspector set Image Type = Filled, Fill Method = Horizontal, Fill Origin = Left
+            fillImage.fillAmount = t;
+
+            if (fillColorOverProgress != null)
+                fillImage.color = fillColorOverProgress.Evaluate(t);
         }
     }
 }

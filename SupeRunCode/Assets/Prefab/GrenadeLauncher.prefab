@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5407795474002743339}
   - component: {fileID: 5978510601771611292}
+  - component: {fileID: 7593693831384348359}
   m_Layer: 0
   m_Name: GrenadeLauncher
   m_TagString: Untagged
@@ -50,13 +51,48 @@ MonoBehaviour:
   fireRate: 1
   maxLevel: 10
   startLevel: 1
+  critChance: 0.5
+  critMultiplier: 3
   grenadePrefab: {fileID: 6479626677439584625, guid: 888ebe48a5c1ffb45ab7a9ae986bea79, type: 3}
   muzzleTransform: {fileID: 5407795474002743339}
-  baseDamage: 50
+  aimIndicator: {fileID: 7593693831384348359}
+  spreadAngleDegrees: 8
+  prewarmCount: 16
+  baseDamage: 40
   baseExplosionRadius: 4
   baseMaxKnockbackForce: 25
   baseCooldown: 0.8
   baseProjectileCount: 1
+  muzzleVfx: {fileID: 0}
+  muzzleSfx: {fileID: 0}
+  muzzleSfxVolume: 1
+  weaponVisual: {fileID: 0}
+  recoilLocalOffset: {x: 0, y: 0, z: -0.12}
+  recoilKickSpeed: 30
+  recoilReturnSpeed: 18
+  useCustomAimViewportPoint: 1
+  aimViewportPoint: {x: 0.5, y: 0.9}
+--- !u!114 &7593693831384348359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5756624879743567228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cccdfdb6bfdae4d87492961b303ebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SRGrenadeAimIndicator
+  launcher: {fileID: 5978510601771611292}
+  landingMarkerPrefab: {fileID: 5456564673240602467, guid: b8948a853b27be041a4f4af6d452ca35, type: 3}
+  clusterRing: {fileID: 4270257139177755774, guid: 22b2703ee96d24644abfeed9a53767e2, type: 3}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8
+  maxSimSteps: 80
+  simStep: 0.03
+  weaponManager: {fileID: 0}
 --- !u!1 &6102769972570797745
 GameObject:
   m_ObjectHideFlags: 0

@@ -37,15 +37,23 @@ public class SRSniperRifle : SRWeaponBase
 
     [SerializeField] private int baseProjectileCount = 1;
 
-    [Range(0f, 1f)]
-    [SerializeField] private float baseCritChance = 0.05f;
-
-    [Tooltip("Damage multiplier on crit.")]
-    [SerializeField] private float critMultiplier = 2f;
-
     [Header("Multi-shot Spread")]
     [Tooltip("If ProjectileCount > 1, each shot is rotated by this many degrees around Y.")]
     [SerializeField] private float spreadDegrees = 2.5f;
+    [SerializeField] private Transform muzzleTransform;
+
+    [Header("Aiming")]
+    [SerializeField]
+    private bool useCustomAimViewportPoint = true;
+
+    [SerializeField]
+    private Vector2 aimViewportPoint = new Vector2(0.5f, 0.7f);
+
+    // Override base
+    public override bool UseCustomAimViewportPoint => useCustomAimViewportPoint;
+    public override Vector2 AimViewportPoint => aimViewportPoint;
+
+    public override Transform MuzzleTransform => muzzleTransform;
 
     // Runtime stats (upgradable)
     private float currentDamage;
@@ -54,12 +62,12 @@ public class SRSniperRifle : SRWeaponBase
     private float currentPreShotCooldown;
     private float currentPostShotCooldown;
     private int currentProjectileCount;
-    private float currentCritChance;
+    private SRWeaponManager weaponManager;
 
     // Charging state
     private bool charging;
     private float chargeTimer;
-
+    public float Range => range;
     protected override void Awake()
     {
         base.Awake();
@@ -70,7 +78,9 @@ public class SRSniperRifle : SRWeaponBase
         currentPreShotCooldown = basePreShotCooldown;
         currentPostShotCooldown = basePostShotCooldown;
         currentProjectileCount = baseProjectileCount;
-        currentCritChance = baseCritChance;
+        currentCritChance = critChance;
+        if (weaponManager == null)
+            weaponManager = FindAnyObjectByType<SRWeaponManager>();
 
         // IMPORTANT:
         // We control cooldownTimer manually (charge+recovery),
@@ -109,17 +119,19 @@ public class SRSniperRifle : SRWeaponBase
 
     private void FireSniperShot()
     {
-        Camera cam = Camera.main;
+        Vector3 origin = weaponManager != null ? weaponManager.GetFireOrigin() : transform.position;
+        RaiseFired(); // <-- triggers reticle bloom exactly when shot happens
+        Vector3 dir;
+        if (weaponManager != null)
+            dir = weaponManager.GetLiveAimDirectionFromFireOrigin();
+        else
+            dir = transform.forward;
 
-        // Prefer a ray from the camera center, so it feels like "aim where you look".
-        Vector3 origin = cam != null ? cam.transform.position : transform.position;
-        Vector3 dir = cam != null ? cam.transform.forward : transform.forward;
         dir.Normalize();
 
         int shots = Mathf.Max(1, currentProjectileCount);
         float radius = Mathf.Max(0.01f, currentRadius);
 
-        // Multi-shot: small yaw spread around camera forward
         int mid = shots / 2;
 
         for (int i = 0; i < shots; i++)
@@ -131,6 +143,7 @@ public class SRSniperRifle : SRWeaponBase
             DoPiercingCylinderHit(origin, shotDir, radius);
         }
     }
+
 
     private void DoPiercingCylinderHit(Vector3 origin, Vector3 direction, float radius)
     {
@@ -150,8 +163,8 @@ public class SRSniperRifle : SRWeaponBase
         Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
 
         // Crit roll once per "shot"
-        bool isCrit = UnityEngine.Random.value < currentCritChance;
-        float dmg = isCrit ? currentDamage * critMultiplier : currentDamage;
+        bool isCrit;
+        float dmg = RollCritDamage(currentDamage, currentCritChance, out isCrit);
 
         for (int i = 0; i < hits.Length; i++)
         {
@@ -160,7 +173,16 @@ public class SRSniperRifle : SRWeaponBase
 
             // Damage (works even if you don't have a shared interface)
             // If your enemy health script has TakeDamage(float), this will call it.
-            col.SendMessageUpwards("TakeDamage", dmg, SendMessageOptions.DontRequireReceiver);
+            var health = col.GetComponentInParent<SREnemyHealth>();
+            if (health == null)
+                health = col.attachedRigidbody != null ? col.attachedRigidbody.GetComponentInParent<SREnemyHealth>() : null;
+
+            if (health != null)
+            {
+                health.TakeDamage(dmg, isCrit);
+            }
+
+
 
             // Knockback: your enemy has SREnemyLite.ApplyKnockback(Vector3)
             var enemyLite = col.GetComponentInParent<SREnemyLite>();

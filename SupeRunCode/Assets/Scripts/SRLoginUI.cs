@@ -12,6 +12,8 @@ public class SRLoginUI : MonoBehaviour
     [SerializeField] private GameObject loginPanel;
     [SerializeField] private GameObject mainMenuPanel;
 
+    private bool signedInAsGuest;
+
     private void OnEnable()
     {
         if (SRAuthenticationManager.Instance != null)
@@ -26,7 +28,6 @@ public class SRLoginUI : MonoBehaviour
 
     private void Start()
     {
-        // If already signed in when this UI appears, skip login instantly
         if (SRAuthenticationManager.Instance != null && SRAuthenticationManager.Instance.IsSignedIn)
             HandleSignedIn();
         else
@@ -43,37 +44,41 @@ public class SRLoginUI : MonoBehaviour
     {
         Debug.Log("HandleSignedIn -> switching UI to Main Menu");
 
-        if (statusText != null) statusText.text = "";
+        if (statusText != null)
+            statusText.text = "";
 
         if (loginPanel != null) loginPanel.SetActive(false);
         if (mainMenuPanel != null) mainMenuPanel.SetActive(true);
-
-        // Cloud load hook (we'll add it next step)
-        if (SRProgressManager.Instance != null)
+        if (!signedInAsGuest && SRProgressManager.Instance != null)
             SRProgressManager.Instance.LoadFromCloud();
     }
 
+
     public async void OnLoginClicked()
     {
+        signedInAsGuest = false;
+
         string user = usernameInput.text;
         string pass = passwordInput.text;
 
         if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(pass))
         {
-            statusText.text = "Enter Usernam and Password";
+            statusText.text = "Enter Username and Password";
             return;
         }
 
-        statusText.text = "Loggin in...";
+        statusText.text = "Logging in...";
         var result = await SRAuthenticationManager.Instance.Login(user, pass);
         statusText.text = result.message;
 
         if (result.success)
-            HandleSignedIn(); // also covers "Already signed in"
+            HandleSignedIn();
     }
 
     public async void OnRegisterClicked()
     {
+        signedInAsGuest = false;
+
         string user = usernameInput.text;
         string pass = passwordInput.text;
 
@@ -83,11 +88,25 @@ public class SRLoginUI : MonoBehaviour
             return;
         }
 
-        statusText.text = "Registered...";
+        statusText.text = "Registering...";
         var result = await SRAuthenticationManager.Instance.Register(user, pass);
         statusText.text = result.message;
 
         if (result.success)
-            HandleSignedIn(); 
+            HandleSignedIn();
+    }
+
+    public async void OnGuestClicked()
+    {
+        signedInAsGuest = true;
+
+        if (statusText != null) statusText.text = "Signing in as guest...";
+
+        // Option A (recommended): anonymous sign-in (Unity Authentication style)
+        var result = await SRAuthenticationManager.Instance.LoginAsGuest();
+        if (statusText != null) statusText.text = result.message;
+
+        if (result.success)
+            HandleSignedIn();
     }
 }
